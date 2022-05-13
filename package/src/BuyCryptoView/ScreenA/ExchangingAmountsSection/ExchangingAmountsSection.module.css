@@ -1,0 +1,11 @@
+.wrapper {
+  margin-bottom: 32px;
+}
+
+div.crypto-icon {
+  background-color: unset;
+}
+
+.fiat-icon img {
+  filter: brightness(0) invert(1);
+}

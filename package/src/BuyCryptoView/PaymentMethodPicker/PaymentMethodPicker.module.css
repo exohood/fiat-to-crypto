@@ -1,0 +1,130 @@
+.wrapper {
+  display: flex;
+  flex-wrap: nowrap;
+  margin-bottom: 1.75rem;
+  min-height: 57px;
+  --item-width: 124px;
+}
+
+.option-wrapper {
+  min-width: var(--item-width);
+  height: 57px;
+  padding: 0.5rem;
+  padding-top: 0.563rem;
+  font-size: 13px;
+  line-height: 16px;
+  color: var(--text-light-color);
+  cursor: pointer;
+  border: 0.0938rem solid transparent;
+  border-radius: 0.5rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  box-sizing: border-box;
+  background: #ffffff;
+  box-shadow: 0px 0.25rem 1rem rgba(0, 0, 0, 0.08);
+
+  margin-right: 1.25rem;
+}
+
+.wrapper[num-children="1"] .option-wrapper,
+.wrapper[num-children="2"] .option-wrapper,
+.wrapper[num-children="3"] .option-wrapper {
+  flex: 1;
+}
+
+.option-logo-wrapper {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-bottom: 0.25rem;
+  line-height: 1.2369rem;
+  font-size: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.option-logo-wrapper img {
+  width: 20px;
+  max-height: 100%;
+  opacity: 0.61;
+}
+
+.option-label {
+  width: 100%;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.option-wrapper.selected {
+  color: var(--text-dark-color);
+  border-color: var(--list-active-color);
+}
+
+.option-wrapper.selected .option-logo-wrapper img {
+  opacity: 1;
+}
+
+.skeloton-option {
+  border: none;
+  box-shadow: none;
+}
+
+.title {
+  font-size: 0.875rem;
+  line-height: 1.0625rem;
+  color: var(--text-light-color);
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 375px) {
+  .option-wrapper {
+    --item-width: 89.33px;
+    height: 57px;
+    margin-right: 16px;
+
+    font-size: 11px;
+    line-height: 13px;
+
+    border-width: 1.5px;
+    border-radius: 8px;
+  }
+
+  .option-logo-wrapper {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 4px;
+    font-size: 11px;
+    line-height: 13px;
+  }
+
+  .option-logo-wrapper > img {
+    width: 18px;
+  }
+
+  .title {
+    font-size: 14px;
+    line-height: 17px;
+    margin-bottom: 8px;
+  }
+}
+
+@media (max-width: 375px) and (min-height: 677px) {
+  .wrapper {
+    margin-bottom: 32px;
+  }
+}
+
+@media (max-width: 320px) {
+  .option-wrapper {
+    width: 100%;
+  }
+}
+
+.wrapper > .option-wrapper:last-child {
+  margin-right: 0;
+}

@@ -1,0 +1,21 @@
+.heading {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  color: var(--text-light-color);
+  margin-top: 13px;
+  text-align: center;
+}
+
+.exchange-ui-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 30px;
+  align-items: center;
+}
+
+.exchange-ui-wrapper * {
+  box-sizing: border-box;
+}

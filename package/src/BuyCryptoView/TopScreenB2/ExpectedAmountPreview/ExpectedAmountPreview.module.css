@@ -1,0 +1,30 @@
+.text-status {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 11px;
+  line-height: 14px;
+  color: var(--text-light-color);
+  text-align: center;
+  margin-top: 12px;
+}
+
+.error-text {
+  padding-top: 11px;
+  min-height: 15px;
+}
+
+.crypto-switcher {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.crypto-switcher:hover {
+  text-decoration: underline;
+}
+
+.swap-icon {
+  width: 12px;
+  height: 12px;
+  margin-left: 5px;
+}

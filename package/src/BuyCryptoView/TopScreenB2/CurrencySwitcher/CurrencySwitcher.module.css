@@ -1,0 +1,29 @@
+.switcher-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 23px;
+  margin-bottom: 39px;
+  min-height: 42px;
+}
+
+.arrow-right {
+  margin: 0 19px;
+}
+
+div.crypto-icon {
+  background-color: unset;
+}
+
+div.fiat-icon {
+  padding: 3px;
+}
+
+.fiat-icon img {
+  filter: brightness(0) invert(1);
+}
+
+@media (max-width: 330px) {
+  .arrow-right {
+    margin: 0 10px;
+  }
+}

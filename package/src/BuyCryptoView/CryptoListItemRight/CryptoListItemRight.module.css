@@ -1,0 +1,12 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+}
+
+.network {
+  font-size: 12px;
+  line-height: 15px;
+  color: var(--text-light-color);
+  margin-top: 2px;
+}
