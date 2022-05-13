@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+
+    <script src="dist/index.js"></script>
+    <style>
+        html,
+        body {
+            color: white;
+            margin: 0;
+            height: 100%;
+            background: grey;
+        }
+
+        #onramper-widget {
+            color: black;
+            width: 440px;
+            height: 595px;
+            box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
+            margin: 3rem auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="onramper-widget">Loading widget...</div>
+    <script>
+        Onramper.initialize("#onramper-widget")
+    </script>
+</body>
+
+</html>

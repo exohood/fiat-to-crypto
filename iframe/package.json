@@ -1,0 +1,102 @@
+{
+  "name": "onramper-widget",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@onramper/widget": "file:../package",
+    "@sentry/react": "^6.1.0",
+    "@sentry/tracing": "^6.1.0",
+    "react": "^17.0.2",
+    "react-app-polyfill": "^2.0.0",
+    "react-dom": "^17.0.2",
+    "react-gtm-module": "^2.0.11"
+  },
+  "scripts": {
+    "lint": "eslint src --ext ts,js,tsx --no-ignore --fix --cache",
+    "checklint": "eslint src --ext ts,js,tsx --no-ignore --cache",
+    "start": "react-scripts start",
+    "start:prod": "export REACT_APP_STAGE=prod&&npm start",
+    "start:demo": "export REACT_APP_STAGE=demo&&npm start",
+    "start:demo-win": "set REACT_APP_STAGE=demo&&npm start",
+    "start:l2": "set REACT_APP_STAGE=l2&&npm start",
+    "start:local": "set PORT=3001&&npm start",
+    "start:local-unix": "PORT=3001 react-scripts start",
+    "setup": "npm ci",
+    "build": "react-scripts build",
+    "build:dev": "react-scripts build",
+    "build:prod": "export REACT_APP_STAGE=prod&&npm run build",
+    "build:demo": "export REACT_APP_STAGE=demo&&npm run build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "@types/jest": "^24.9.1",
+    "@types/react": "^16.9.54",
+    "@types/react-dom": "^16.9.9",
+    "@types/react-gtm-module": "^2.0.1",
+    "@types/react-test-renderer": "^16.9.2",
+    "msw": "^0.22.1",
+    "prettier": "^2.1.2",
+    "react-scripts": "3.4.1",
+    "react-test-renderer": "^17.0.2",
+    "ts-jest": "^24.3.0",
+    "typescript": "^3.9.5"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!src/**/*.d.ts",
+      "!src/index.tsx",
+      "!src/serviceWorker.ts"
+    ],
+    "coveragePathIgnorePatterns": [
+      "./src/*/*.types.{ts,tsx}",
+      "./src/index.tsx",
+      "./src/serviceWorker.ts"
+    ],
+    "coverageReporters": [
+      "json",
+      "lcov",
+      "text-summary",
+      "clover"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "statements": 95,
+        "branches": 95,
+        "lines": 95,
+        "functions": 95
+      }
+    },
+    "transform": {
+      "^.+\\.(js|jsx|ts|tsx)$": "<rootDir>/node_modules/ts-jest"
+    },
+    "transformIgnorePatterns": [
+      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|ts|tsx)$",
+      "^.+\\.module\\.(css|sass|scss)$"
+    ],
+    "moduleNameMapper": {
+      "^react-native$": "react-native-web",
+      "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy",
+      "src/(.*)$": "<rootDir>/src/$1"
+    }
+  }
+}
