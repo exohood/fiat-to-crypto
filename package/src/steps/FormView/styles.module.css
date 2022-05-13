@@ -1,0 +1,23 @@
+.terms {
+  font-size: 0.75rem;
+  padding-top: var(--form-field-space);
+}
+
+.terms:first-of-type {
+  margin-top: auto;
+}
+
+/***********************************/
+
+.resend {
+  font-size: 0.75rem;
+  margin-top: 0.56rem;
+  text-transform: uppercase;
+  color: var(--text-light-color);
+  text-align: right;
+  width: 100%;
+}
+
+.resend:hover {
+  cursor: pointer;
+}

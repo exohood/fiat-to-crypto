@@ -1,0 +1,42 @@
+.center {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  align-items: center;
+  text-align: center;
+  font-size: 1rem;
+  margin: auto var(--padding-rl);
+  width: 100%;
+}
+
+.block > span + span,
+.center > span + span {
+  margin: auto;
+  margin-top: 1rem;
+}
+
+.block > span {
+  display: block;
+}
+
+.button--redirect {
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.body {
+  padding: 0;
+}
+
+.footer {
+  margin-top: 0;
+}
+
+.body__child {
+  margin-right: var(--padding-rl);
+  margin-left: var(--padding-rl);
+}
+
+.body__child:first-child {
+  margin-top: var(--body-space-childs);
+}
