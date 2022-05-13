@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "target": "es3",
+    "module": "commonjs",
+    "sourceMap": true,
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "downlevelIteration": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": false,
+    "jsx": "react",
+    "allowJs": true,
+    "declaration": true,
+    "outDir": "./dist"
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "**/node_modules",
+    "**/tests",
+    "**/setupTests.ts",
+    "**/.test.tsx",
+    "**/__snapshots__"
+  ]
+}
