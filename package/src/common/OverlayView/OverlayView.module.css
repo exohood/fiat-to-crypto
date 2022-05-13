@@ -1,0 +1,67 @@
+.help-view {
+  background: black;
+  justify-content: flex-end;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  border-radius: var(--border-radius);
+  background: var(--overlay-backdrop-color);
+}
+
+.help-pane {
+  --pane-max-height: 350px;
+  --pane-min-height: 350px;
+  max-height: var(--pane-max-height);
+  background: white;
+  border-radius: var(--border-radius);
+  overflow: auto;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.help-pane-fixed {
+  height: 350px;
+  height: var(--pane-max-height);
+}
+
+/********transition*********/
+.collapse-enter {
+  max-height: 0;
+}
+
+.collapse-enter-active {
+  max-height: var(--pane-max-height);
+  overflow: hidden;
+  transition: max-height 250ms;
+}
+
+.collapse-exit {
+  overflow: hidden;
+  max-height: var(--pane-max-height);
+}
+
+.collapse-exit-active {
+  max-height: 0px;
+  transition: max-height 250ms;
+}
+
+.collapse-enter-fixed {
+  height: 0;
+}
+
+.collapse-enter-active-fixed {
+  height: var(--pane-max-height);
+  overflow: hidden;
+  transition: height 250ms;
+}
+
+.collapse-exit-fixed {
+  overflow: hidden;
+  height: var(--pane-max-height);
+}
+
+.collapse-exit-active-fixed {
+  height: 0px;
+  transition: height 250ms;
+}

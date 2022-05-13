@@ -1,0 +1,119 @@
+/*------------------inputs--------------------*/
+/*container label+type*/
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+  min-width: 6rem;
+}
+
+.wrapper,
+.wrapper * {
+  box-sizing: border-box;
+}
+
+.wrapper > label {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  letter-spacing: 0.01em;
+  color: var(--text-dark-color);
+  margin-bottom: 12px;
+}
+
+.input-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 15px;
+  height: var(--input-form-height);
+  border-radius: 12px;
+  border: 1.5px solid var(--input-stroke-color);
+  background-color: var(--input-form-bg-color);
+  transition: border-color 0.2s;
+}
+
+.option-text {
+  font-size: 14px;
+  line-height: 17px;
+  letter-spacing: 0.005em;
+  color: var(--text-dark-color);
+}
+
+.input-wrapper:hover {
+  border-color: var(--grey-light-color);
+}
+
+.input-wrapper.input-wrapper-selector-disabled {
+  cursor: unset;
+  border-color: var(--input-stroke-color);
+}
+
+.input-wrapper.input-wrapper-selector-error {
+  border-color: var(--error-color);
+}
+
+.input-wrapper-child + .input-wrapper-child {
+  margin-left: var(--component-content-spacing);
+}
+
+.input-wrapper-child-new-first {
+  margin-left: 0 !important;
+}
+
+.input-wrapper-child-old-first {
+  margin-left: var(--component-content-spacing);
+}
+
+.input-wrapper-selector {
+  cursor: pointer;
+  align-items: center;
+}
+
+.input-wrapper-selector span {
+  flex-grow: 1;
+}
+
+.input-icon {
+  height: 26px;
+}
+
+.network-bubble {
+  margin-left: auto;
+  margin-right: var(--component-content-spacing);
+  background-color: gray;
+  border-radius: var(--border-radius);
+  font-size: 0.75em;
+  color: white;
+  padding: 0.35rem;
+  opacity: 0.5;
+}
+
+.input-icon-chevron {
+  height: 0.75rem;
+}
+
+.arrow-icon {
+  width: 12px;
+}
+
+.text-error-wrapper {
+  margin-top: 10px;
+}
+
+.text-under {
+  display: flex;
+  align-items: center;
+  color: inherit;
+  font-size: 12px;
+  margin-top: 10px;
+  color: var(--text-dark-color);
+}
+
+.text-under img {
+  max-height: 12px;
+  margin-right: 6px;
+}

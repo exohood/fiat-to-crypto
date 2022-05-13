@@ -1,0 +1,48 @@
+/* ICONS */
+.tooltip-help {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+  background: #e0e0e0;
+  border-radius: 50%;
+  -webkit-transition: 0.25s background;
+  -o-transition: 0.25s background;
+  transition: 0.25s background;
+}
+
+.tooltip-help .icon {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.tooltip-help:hover {
+  /* background: var(--primary-color); */
+  background: #a0a0a0;
+}
+
+.tooltip-help:hover .icon {
+  /* color: #404040; */
+  color: #e0e0e0;
+}
+
+.icon {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transition: 0.25s fill ease-in-out, 0.25s stroke ease-in-out;
+  -o-transition: 0.25s fill ease-in-out, 0.25s stroke ease-in-out;
+  transition: 0.25s fill ease-in-out, 0.25s stroke ease-in-out;
+}
+
+/* types */
+.icon-question {
+  width: 12px;
+  height: 12px;
+  color: #a0a0a0;
+}

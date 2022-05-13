@@ -1,0 +1,26 @@
+.wrapper > h1,
+.wrapper > h2 {
+  display: block;
+}
+
+.wrapper > h1 {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24px;
+  color: var(--text-dark-color);
+}
+
+.wrapper > h2 {
+  font-size: 14px;
+  line-height: 23px;
+  color: var(--text-light-color);
+}
+
+.wrapper {
+  padding-top: var(--pt-heading);
+  padding-bottom: var(--pb-heading);
+}
+
+.wrapper > h1 + h2 {
+  padding-top: 10px;
+}

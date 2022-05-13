@@ -1,0 +1,37 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.text-error {
+  font-size: 12px;
+  line-height: 15px;
+  letter-spacing: 0.08px;
+  color: var(--error-color);
+}
+
+.err-icon {
+  margin-right: 6px;
+}
+
+.collapse-enter {
+  max-height: 0px;
+  opacity: 0;
+}
+
+.collapse-enter-active {
+  max-height: 42px;
+  opacity: 1;
+  transition: max-height 100ms linear, opacity 100ms linear;
+}
+
+.collapse-exit {
+  max-height: 42px;
+  opacity: 1;
+}
+
+.collapse-exit-active {
+  max-height: 0px;
+  opacity: 0;
+  transition: max-height 100ms linear, opacity 100ms linear;
+}

@@ -1,0 +1,25 @@
+.wrapper {
+  height: 63px;
+  display: flex;
+  align-items: flex-end;
+  flex: 1;
+}
+
+.option-wrapper {
+  padding: 6px 15px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 22px;
+  color: rgba(25, 28, 31, 0.4);
+  cursor: pointer;
+
+  border-bottom-left-radius: 1px;
+  border-bottom-right-radius: 1px;
+  border-bottom: 2px solid #f6f7f9;
+}
+
+.option-wrapper.selected {
+  border-bottom: 2px solid var(--primary-color);
+  color: var(--text-dark-color);
+}

@@ -1,0 +1,87 @@
+.list-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 16px var(--padding-rl);
+  box-sizing: border-box;
+  color: var(--text-dark-color);
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 22px;
+  cursor: pointer;
+  background-color: var(--background-color);
+  transition: 200ms background-color;
+}
+
+.list-text {
+  flex: 1;
+  text-align: left;
+  padding-left: 16px;
+}
+
+.list-item a:not(:hover) {
+  text-decoration: none;
+}
+
+.list-item a {
+  color: inherit;
+}
+
+.list-icon {
+  width: 48px;
+  height: 48px;
+  padding: 10px;
+  background: var(--icon-backdrop-color);
+  border-radius: 50%;
+}
+
+.list-icon img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.chevron-toggle path {
+  color: var(--text-light-color);
+}
+
+.chevron-toggle {
+  transition: 200ms transform;
+}
+
+.chevron-toggle.down {
+  -webkit-transform: scaleY(-1);
+  transform: scaleY(-1);
+}
+
+.list-item:hover {
+  background-color: var(--list-hover-color);
+}
+
+.list-item:active {
+  color: var(--list-active-txt-color);
+  background-color: var(--list-active-color);
+}
+.list-item:active .chevron-toggle path {
+  stroke: var(--list-active-txt-color);
+}
+
+/* children items */
+.list-item.child {
+  padding-left: 86px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.list-item.child .list-text {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.list-item.child .list-icon {
+  width: 32px;
+  height: 32px;
+  padding: 5px;
+  border: 1px solid var(--input-stroke-color);
+  background: var(--background-color);
+}

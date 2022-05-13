@@ -1,0 +1,45 @@
+.wrapper-view {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  flex-grow: 1;
+  border-radius: var(--border-radius) var(--border-radius);
+  background: var(--overlay-backdrop-color);
+  --overlay-menu-width: 364px;
+}
+
+.wrapper {
+  width: var(--overlay-menu-width);
+  max-width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--background-color);
+  border-radius: var(--border-radius) var(--border-radius) var(--border-radius)
+    0;
+  transition: 250ms ease;
+  transform: translateX(0);
+}
+
+/* transition */
+.collapse-enter {
+  transform: translateX(100%);
+}
+
+.collapse-enter-active {
+  transition: all 0.2s ease-in-out;
+  transform: translateX(0%);
+}
+
+.collapse-exit {
+  transform: translateX(0%);
+}
+
+.collapse-exit-active {
+  transform: translateX(100%);
+  transition: all 0.2s ease-in-out;
+}

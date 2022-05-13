@@ -1,0 +1,97 @@
+.infobox {
+  --padding-rl: 1.25rem;
+  --padding-tb: 0.75rem;
+  margin: 0;
+  padding: var(--padding-tb) var(--padding-rl);
+  font-size: 0.75rem;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  overflow: hidden;
+}
+
+.infobox-simple {
+  flex-direction: row;
+  align-items: center;
+}
+
+.infobox--info {
+  background-color: #fcf5ee;
+  color: black;
+}
+
+.infobox--notification {
+  border-left: 5px solid var(--color-border);
+  background-color: var(--color-background);
+  color: var(--color-border);
+}
+
+.infobox--error {
+  --errorColor: #e79a00; /* if this is changed, change also background-color + alpha=0x15 */
+  --primary-color: var(--errorColor);
+  border-left: 5px solid var(--errorColor);
+  background-color: #e79a0015;
+  color: var(--errorColor);
+}
+
+.text {
+  flex-grow: 1;
+  margin-right: calc(var(--padding-rl) * 0.75);
+}
+
+.text + .close-button {
+  margin-left: var(--padding-rl);
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+}
+
+.close-button:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.button-action {
+  width: 5rem;
+}
+
+.child-node {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
+
+.child-node-simple {
+  width: unset;
+}
+
+/********error display transition*********/
+.collapse-enter {
+  max-height: 0px;
+  opacity: 0;
+  padding: 0 var(--padding-rl);
+}
+
+.collapse-enter-active {
+  max-height: 7rem;
+  opacity: 1;
+  padding: var(--padding-tb) var(--padding-rl);
+  transition: all 100ms linear;
+}
+
+.collapse-exit {
+  max-height: 7rem;
+  opacity: 1;
+}
+
+.collapse-exit-active {
+  max-height: 0px;
+  opacity: 0;
+  transition: all 100ms linear;
+}

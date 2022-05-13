@@ -1,0 +1,83 @@
+.header.default {
+  --border-color: var(--seperator-color);
+  --text-color: var(--text-dark-color);
+  --stroke-dark-color: var(--text-light-color);
+  --stroke-light-color: var(--grey-light-color);
+  --h-border-width: 2px;
+  --progress-color: var(--primary-color);
+}
+
+.header.primary {
+  --border-color: transparent;
+  --text-color: var(--primary-var-text-color);
+  --stroke-dark-color: var(--primary-var-text-color);
+  --stroke-light-color: var(--primary-var-text-color);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  height: var(--header-height);
+  padding-top: 12px;
+  padding-left: var(--padding-rl);
+  padding-right: var(--padding-rl);
+  border-radius: 10px 10px 0 0;
+  border-bottom: var(--h-border-width) solid var(--border-color);
+  box-sizing: border-box;
+  position: relative;
+}
+
+.header * {
+  box-sizing: border-box;
+}
+
+.arrow-back {
+  cursor: pointer;
+  width: 28px;
+  height: 28px;
+}
+
+.arrow-back path {
+  stroke: var(--stroke-dark-color);
+}
+
+.middle-content {
+  flex-grow: 1;
+  padding: 8px 12px;
+  box-sizing: border-box;
+}
+
+.header-text {
+  text-align: center;
+  color: var(--text-color);
+  width: 100%;
+  max-height: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.header-burger-icon {
+  cursor: pointer;
+  width: 34px;
+  height: 34px;
+}
+
+.header-burger-icon rect {
+  stroke: var(--stroke-light-color);
+}
+
+.header-burger-icon circle {
+  fill: var(--stroke-light-color);
+}
+
+.progress-bar {
+  width: 50%;
+  height: var(--h-border-width);
+  position: absolute;
+  left: 0;
+  bottom: calc(-1 * var(--h-border-width));
+  background-color: var(--progress-color);
+  overflow: hidden;
+  transition: width 0.2s;
+}

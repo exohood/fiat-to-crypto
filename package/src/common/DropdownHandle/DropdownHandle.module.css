@@ -1,0 +1,47 @@
+.handle-wrapper {
+  min-width: 105px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  padding: 9px;
+  background: var(--input-bg-color);
+  border-radius: 162px;
+  cursor: pointer;
+}
+
+.icon-handle-wrapper {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  margin-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--primary-color);
+}
+
+.icon-handle {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.value-dropdown {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 15px;
+  color: var(--text-dark-color);
+  margin-right: 9px;
+}
+
+.icon-down {
+  margin-right: 7px;
+}
+
+.handle-wrapper.disabled {
+  cursor: default;
+}
+
+.handle-wrapper.disabled .icon-down {
+  opacity: 0.5;
+}

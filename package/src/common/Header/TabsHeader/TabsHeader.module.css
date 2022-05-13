@@ -1,0 +1,23 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  padding-left: var(--padding-rl);
+  padding-right: var(--padding-rl);
+  font-size: 1rem;
+  flex-shrink: 0;
+  z-index: 1;
+  height: var(--header-tabs-height);
+  padding-bottom: 3px;
+  box-sizing: border-box;
+}
+
+.tabs-header-menu {
+  height: var(--header-tabs-height);
+  align-items: flex-end;
+  padding-bottom: 2px;
+}
+
+.tabs-header-menu > div[itemProp="text"] {
+  padding-bottom: 7px;
+}

@@ -1,0 +1,14 @@
+.wrapper {
+  height: var(--header-height);
+  padding-left: var(--padding-rl);
+  padding-right: var(--padding-rl);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.wrapper img {
+  cursor: pointer;
+}

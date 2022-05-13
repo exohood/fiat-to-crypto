@@ -1,0 +1,51 @@
+/*-------------------button-------------------*/
+
+.button-action {
+  outline: none;
+  cursor: pointer;
+  background: var(--primary-color);
+  border-style: solid;
+  border-radius: 3.9375rem;
+  border-width: 0px;
+  border-color: #dedede;
+  color: white;
+  font-size: 1rem;
+  padding: 1.125rem;
+  width: 100%;
+  margin-top: auto;
+  height: fit-content;
+  height: -moz-fit-content;
+  box-shadow: 0px 24px 24px rgba(0, 75, 235, 0.1);
+  transition: background-color 0.1s;
+  position: relative;
+  z-index: 2;
+}
+
+.button-action--small {
+  font-size: 1em;
+  padding: 0.625em 1em;
+}
+
+.button-action:hover {
+  background: linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.1),
+      rgba(255, 255, 255, 0.1)
+    ),
+    #004beb;
+}
+
+.button-action:active {
+  background: linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.25),
+      rgba(255, 255, 255, 0.25)
+    ),
+    #004beb;
+}
+
+.button-action:disabled {
+  background: #c3c8ef;
+  box-shadow: none;
+  cursor: unset;
+}
