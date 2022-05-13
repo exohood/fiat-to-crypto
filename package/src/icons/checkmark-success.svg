@@ -1,0 +1,15 @@
+<svg width="127" height="126" viewBox="0 0 127 126" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M22.9355 43.437C16.6811 44.5041 4.02509 49.8977 3.43649 62.9361" stroke="var(--secondary-color)"
+        stroke-width="4" stroke-linecap="round" />
+    <circle cx="64" cy="84" r="39" fill="var(--main-crycle-color)" />
+    <path d="M77.566 73.826L58.9138 92.4782L50.4355 84" stroke="var(--check-color)" stroke-width="5.08696" stroke-linecap="round"
+        stroke-linejoin="round" />
+    <circle cx="108" cy="54" r="3" fill="var(--secondary-color)" />
+    <circle cx="13" cy="121" r="5" fill="var(--secondary-color)" />
+    <path
+        d="M60.9668 8.61702C61.4466 7.62313 62.9461 8.02491 62.8647 9.12554L62.3563 15.9976C62.326 16.4071 62.5491 16.7935 62.9188 16.972L69.1244 19.9677C70.1183 20.4475 69.7165 21.947 68.6159 21.8656L61.7438 21.3572C61.3343 21.3269 60.948 21.55 60.7695 21.9197L57.7737 28.1253C57.2939 29.1192 55.7944 28.7174 55.8759 27.6168L56.3843 20.7447C56.4145 20.3352 56.1915 19.9489 55.8217 19.7704L49.6161 16.7746C48.6222 16.2948 49.024 14.7953 50.1246 14.8768L56.9967 15.3852C57.4062 15.4154 57.7926 15.1924 57.9711 14.8226L60.9668 8.61702Z"
+        fill="var(--secondary-color)" />
+    <path
+        d="M124.5 94L120.826 98.5219C119.269 100.439 119.571 103.257 121.499 104.8V104.8C123.612 106.489 123.739 109.657 121.769 111.511L117 116"
+        stroke="var(--secondary-color)" stroke-width="4" stroke-linecap="round" />
+</svg>
