@@ -107,15 +107,15 @@
   }
 
   .title {
-    font-size: 14px;
-    line-height: 17px;
+    font-size: 40px;
+    line-height: 44px;
     margin-bottom: 8px;
   }
 }
 
-@media (max-width: 375px) and (min-height: 677px) {
+@media (max-width: 440px) and (min-height: 677px) {
   .wrapper {
-    margin-bottom: 32px;
+    margin-bottom: 12px;
   }
 }
 
@@ -126,5 +126,5 @@
 }
 
 .wrapper > .option-wrapper:last-child {
-  margin-right: 0;
+  margin-right: 1px;
 }
