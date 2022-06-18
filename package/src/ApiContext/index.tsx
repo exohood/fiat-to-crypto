@@ -6,7 +6,12 @@ import React, {
   useState,
 } from "react";
 
-import { StateType, initialState, ItemCategory } from "./initialState";
+import {
+  StateType,
+  initialState,
+  ItemCategory,
+  StaticRoutingItemType,
+} from "./initialState";
 import { mainReducer, CollectedActionsType, DataActionsType } from "./reducers";
 
 import { arrayUnique, arrayObjUnique } from "../utils";
@@ -23,7 +28,7 @@ import type {
   CollectedStateType,
   GatewayRateOptionSimple,
 } from "./initialState";
-import { GatewaysResponse } from "./api/types/gateways";
+import { GatewaysResponse, SelectGatewayByType } from "./api/types/gateways";
 import { RateResponse } from "./api/types/rate";
 import type {
   NextStep,
@@ -47,7 +52,7 @@ export const DEFAULT_US_STATE = "AL";
 export const DEFAULT_CA_STATE = "AB";
 const NO_CHAT_COUNTRIES = ["ng"];
 const DEFAULT_DISPLAYCHATBUBBLE = true;
-const DEFAULT_PAYMENT_METHOD = "creditCard";
+const DEFAULT_PAYMENT_METHOD = ["creditCard"];
 
 //Creating context
 const APIContext = createContext<StateType>(initialState);
@@ -59,7 +64,7 @@ interface APIProviderType {
   defaultCrypto?: string;
   defaultFiat?: string;
   defaultFiatSoft?: string;
-  defaultPaymentMethod?: string;
+  defaultPaymentMethod?: string[];
   filters?: Filters;
   country?: string;
   language?: string;
@@ -75,6 +80,7 @@ interface APIProviderType {
   isAmountEditable?: boolean;
   recommendedCryptoCurrencies?: string[];
   darkMode?: boolean;
+  selectGatewayBy?: string | "price" | "performance";
 }
 
 /**
@@ -82,9 +88,8 @@ interface APIProviderType {
  *
  * @param language The ISO 639-1 language code. E.g. 'ja'. See: https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
  */
- function updateLanguageIfRequired(language: string) {
-  if (i18n.language !== language)
-    i18n.changeLanguage(language);
+function updateLanguageIfRequired(language: string) {
+  if (i18n.language !== language) i18n.changeLanguage(language);
   if (API.getAcceptLanguageParameter() !== language)
     API.updateAcceptLanguageParameter();
 }
@@ -124,6 +129,7 @@ const APIProvider: React.FC<APIProviderType> = (props) => {
       recommendedCryptoCurrencies: props.recommendedCryptoCurrencies
         ? arrayUnique(props.recommendedCryptoCurrencies)
         : undefined,
+      selectGatewayBy: props.selectGatewayBy,
     };
   }, [
     defaultAddrs,
@@ -138,6 +144,7 @@ const APIProvider: React.FC<APIProviderType> = (props) => {
     props.supportBuy,
     props.isAmountEditable,
     props.recommendedCryptoCurrencies,
+    props.selectGatewayBy,
   ]);
 
   const iniState: StateType = {
@@ -169,6 +176,15 @@ const APIProvider: React.FC<APIProviderType> = (props) => {
       dispatch({
         type: CollectedActionsType.AddField,
         payload: { name, value },
+      }),
+    []
+  );
+
+  const updateStaticRouting = useCallback(
+    (value: StaticRoutingItemType[]) =>
+      dispatch({
+        type: CollectedActionsType.UpdateStaticRoute,
+        payload: { value },
       }),
     []
   );
@@ -285,6 +301,21 @@ const APIProvider: React.FC<APIProviderType> = (props) => {
         });
       }
 
+      if (props.selectGatewayBy === SelectGatewayByType.Performance) {
+        try {
+          updateStaticRouting(
+            (await API.getGatewayStaticRouting(widgetsCountry)).recommended
+          );
+        } catch (error) {
+          return processErrors({
+            GATEWAYS: {
+              type: "API",
+              message: error.message,
+            },
+          });
+        }
+      }
+
       const ICONS_MAP = responseGateways.icons || {};
 
       // GET ALL AVAILABLE CRYPTOS
@@ -364,6 +395,8 @@ const APIProvider: React.FC<APIProviderType> = (props) => {
       props.displayChatBubble,
       props.recommendedCryptoCurrencies,
       props.language,
+      props.selectGatewayBy,
+      updateStaticRouting,
     ]
   );
 
@@ -456,6 +489,19 @@ const APIProvider: React.FC<APIProviderType> = (props) => {
     ]
   );
 
+  const withSortedByDefaultPaymentMethods = useCallback(
+    (availablePaymentMethods: string[]) => {
+      const prioritized = defaultPaymentMethod.filter((item) =>
+        availablePaymentMethods.some((availableItem) => availableItem === item)
+      );
+      const unPrioritized = availablePaymentMethods.filter(
+        (item) => !prioritized.some((defaultItem) => defaultItem === item)
+        );
+      return [...prioritized, ...unPrioritized];
+    },
+    [defaultPaymentMethod]
+  );
+
   const handleCurrencyChange = useCallback(
     (selectedCurrency?: ItemType): ErrorObjectType | undefined | {} => {
       let _selectedCurrency: typeof selectedCurrency;
@@ -521,7 +567,9 @@ const APIProvider: React.FC<APIProviderType> = (props) => {
           filtredGatewaysByCurrency[i].paymentMethods
         );
       }
-      availablePaymentMethods = arrayUnique(availablePaymentMethods);
+      availablePaymentMethods = withSortedByDefaultPaymentMethods(
+        arrayUnique(availablePaymentMethods)
+      );
       if (availablePaymentMethods.length <= 0) {
         return processErrors({
           GATEWAYS: {
@@ -563,45 +611,33 @@ const APIProvider: React.FC<APIProviderType> = (props) => {
       defaultFiat,
       defaultFiatSoft,
       props.amountInCrypto,
+      withSortedByDefaultPaymentMethods,
     ]
   );
 
   const handlePaymentMethodChange = useCallback(
     (selectedPaymentMethod?: ItemType): ErrorObjectType | undefined | {} => {
-      let _selectedPaymentMethod: typeof selectedPaymentMethod;
-      if (!selectedPaymentMethod)
-        _selectedPaymentMethod =
-          state.collected.selectedPaymentMethod ||
-          (defaultPaymentMethod
-            ? {
-                id: defaultPaymentMethod,
-                name: defaultPaymentMethod,
-              }
-            : undefined);
-      else _selectedPaymentMethod = selectedPaymentMethod;
-
-      // IF RESPONSE IS NOT SET, DON'T DO ANYTHING
-      if (!state.data.responseGateways) return {};
       if (
+        !state.data.responseGateways ||
         !state.data.availablePaymentMethods ||
         state.data.availablePaymentMethods.length <= 0
-      )
+      ) {
         return {};
+      }
 
+      const paymentToSearch =
+        selectedPaymentMethod || state.collected.selectedPaymentMethod;
       const actualPaymentMethod =
         state.data.availablePaymentMethods.find(
-          (currency) => currency.id === _selectedPaymentMethod?.id
+          (currency) => currency.id === paymentToSearch?.id
         ) || state.data.availablePaymentMethods[0];
-
-      // save to state.collected
       handleInputChange("selectedPaymentMethod", actualPaymentMethod);
     },
     [
       handleInputChange,
+      state.collected.selectedPaymentMethod,
       state.data.availablePaymentMethods,
       state.data.responseGateways,
-      state.collected.selectedPaymentMethod,
-      defaultPaymentMethod,
     ]
   );
 
@@ -1033,5 +1069,5 @@ export type {
   APIProviderType,
   CollectedStateType,
   GatewayRateOptionSimple,
-  PickOneOption
+  PickOneOption,
 };
