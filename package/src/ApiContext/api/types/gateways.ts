@@ -1,3 +1,5 @@
+import { StaticRoutingItemType } from "../../initialState";
+
 interface GatewaysResponse {
   gateways: IGatewayItem[];
   localization: {
@@ -11,6 +13,10 @@ interface GatewaysResponse {
   defaultAmounts?: {
     [key: string]: number;
   };
+}
+
+interface GatewayStaticRoutingResponse {
+  recommended: StaticRoutingItemType[];
 }
 
 interface Currency {
@@ -35,4 +41,15 @@ interface IGatewayItem {
   cryptoCurrencies: Currency[];
 }
 
-export type { GatewaysResponse, IconGatewaysResponse, IGatewayItem, Currency };
+export enum SelectGatewayByType {
+  Performance = "performance",
+  Price = "price",
+}
+
+export type {
+  GatewaysResponse,
+  IconGatewaysResponse,
+  IGatewayItem,
+  Currency,
+  GatewayStaticRoutingResponse,
+};
