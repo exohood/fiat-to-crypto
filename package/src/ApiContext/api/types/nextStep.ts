@@ -77,8 +77,27 @@ type StepDataItems = Array<
     )
 >;
 
+export enum StepType {
+  iframe = "iframe",
+  information = "information",
+  form = "form",
+  redirect = "redirect",
+  popup = "popup",
+  actionableError = "actionable-error",
+  wait = "wait",
+  pickOne = "pickOne",
+  completed = "completed",
+  requestBankTransaction = "requestBankTransaction",
+  instruction = "instruction",
+  file = "file",
+  emailVerification = "emailVerification",
+  orderComplete = "orderComplete",
+  paymentReview = "paymentReview",
+  stepsOverview = "stepsOverview",
+}
+
 interface FileStep {
-  type: "file";
+  type: StepType.file;
   humanName: string;
   hint?: string;
   url: string;
@@ -111,7 +130,7 @@ interface InfoDepositBankAccount {
 }
 
 type EmailVerificationStep = {
-  type: "emailVerification";
+  type: StepType.emailVerification;
   url?: string;
   description?: string;
   data: {
@@ -124,7 +143,7 @@ type EmailVerificationStep = {
 };
 
 type OrderCompleteStep = {
-  type: "orderComplete";
+  type: StepType.orderComplete;
   description?: string;
 };
 
@@ -134,15 +153,18 @@ type NextStepBase = {
   progress?: number;
   humanName?: string;
   description?: string;
+  eventName?: string;
+  eventCategory?: string;
+  eventLabel?: string;
 };
 
 export type PayamentReviewDataItem = {
-  type: "StepsOverview";
+  type: StepType.stepsOverview;
   items: OverviewStepItem[];
 };
 
 export type PaymentReviewStep = {
-  type: "paymentReview";
+  type: StepType.paymentReview;
   url?: string;
   data: PayamentReviewDataItem[];
 };
@@ -151,30 +173,30 @@ type NextStep = NextStepBase &
   (
     | FileStep
     | {
-        type: "information";
+        type: StepType.information;
         url?: string;
         message: string;
         extraData?: StepDataItems;
       }
     | {
-        type: "form";
+        type: StepType.form;
         url: string;
         data: StepDataItems;
         hint?: string;
       }
     | {
-        type: "iframe";
+        type: StepType.iframe;
         url: string;
         fullscreen: boolean;
         neededFeatures?: string;
       }
     | {
-        type: "redirect";
+        type: StepType.redirect;
         url: string;
         hint?: string;
       }
     | {
-        type: "popup";
+        type: StepType.popup;
         url: string;
         restartUrl: string;
         humanName: string;
@@ -185,7 +207,7 @@ type NextStep = NextStepBase &
         fullscreen: boolean;
       }
     | {
-        type: "actionable-error";
+        type: StepType.actionableError;
         nextStep?: NextStep;
         humanName: string;
         title: string;
@@ -194,29 +216,29 @@ type NextStep = NextStepBase &
         optionalUrl?: string;
       }
     | {
-        type: "wait";
+        type: StepType.wait;
         url: string;
         extraData?: StepDataItems;
         title?: string;
         message?: string;
       }
     | {
-        type: "pickOne";
+        type: StepType.pickOne;
         buttonActionTitle?: string;
         options: PickOneOption[];
       }
     | {
-        type: "completed";
+        type: StepType.completed;
         trackingUrl: string;
       }
     | {
-        type: "requestBankTransaction";
+        type: StepType.requestBankTransaction;
         depositBankAccount: InfoDepositBankAccount;
         reference: string;
         hint: string;
       }
     | {
-        type: "instruction";
+        type: StepType.instruction;
         sections: Array<TextType | ImageType>;
         buttonActionTitle: string;
         url?: string;
@@ -225,6 +247,14 @@ type NextStep = NextStepBase &
     | OrderCompleteStep
     | PaymentReviewStep
   );
+
+export const isStepData = (_obj: unknown) => {
+  const obj = _obj as NextStep;
+  if (!obj.type) {
+    return false;
+  }
+  return Object.entries(StepType).some(([, value]) => value === obj.type);
+};
 
 interface FieldError {
   field: string;
