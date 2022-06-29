@@ -1,0 +1,64 @@
+.body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.body img, .fail-icon {
+    margin: 2rem 0;
+    height: 5rem;
+}
+
+.title {
+    font-size: 1.25rem;
+}
+
+.info {
+    font-size: 0.875rem;
+    color: grey;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+
+.button--link {
+    color: black;
+    margin-top: 1rem;
+    text-decoration: underline;
+
+}
+
+.button--link:hover {
+    cursor: pointer;
+    color: grey;
+}
+
+.button--basic {
+    font-size: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    background-color: #41ad49;
+    outline: none;
+    cursor: pointer;
+    border-style: none;
+    border-radius: 5px;
+    border-width: 0px;
+    padding: 0.78rem;
+    color: white;
+}
+
+.button--pending {
+    background-color: #006bb3;
+}
+
+.button--instant {
+    margin-top: 1rem;
+    font-size: 0.8125rem;
+    background-color: var(--primary-color);
+}
+
+.button--tracking {
+    background-color: var(--primary-color);
+}
