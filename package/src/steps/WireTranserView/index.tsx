@@ -7,9 +7,10 @@ import { copyToClipBoard } from "./utils";
 import { NavContext } from "../../NavContext";
 
 import styles from "../../styles.module.css";
+import { StepType } from "../../ApiContext/api/types/nextStep";
 
 const WireTransferView: React.FC<{
-  nextStep: NextStep & { type: "requestBankTransaction" };
+  nextStep: NextStep & { type: StepType.requestBankTransaction };
 }> = ({ nextStep }) => {
   const { nextScreen } = useContext(NavContext);
   const { collected } = useContext(APIContext);
@@ -24,7 +25,7 @@ const WireTransferView: React.FC<{
       <BodyWireTransfer
         onActionButton={() =>
           nextScreen(
-            <SuccessView txType="pending" nextStep={{ type: "completed" }} />
+            <SuccessView txType="pending" nextStep={{ type: StepType.completed }} />
           )
         }
         amount={collected.amount.toString()}
