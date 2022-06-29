@@ -1,0 +1,112 @@
+name: Build & deploy
+
+on:
+  push:
+    branches: [ master, dev, ice-master, ice-dev, demo, ice-demo ]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint-and-build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Get Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16.x'
+        cache: 'npm'
+        cache-dependency-path: |
+          package/package-lock.json
+          iframe/package-lock.json
+    - run: (cd package && npm ci --omit peer &&  npm run build:dev)
+    - run: (cd iframe && npm ci && npm run build)
+  deploy:
+    needs: [lint-and-build]
+    if: >
+     github.event_name == 'push' && (
+       github.ref == 'refs/heads/master' ||
+       github.ref == 'refs/heads/dev' ||
+       github.ref == 'refs/heads/ice-master' ||
+       github.ref == 'refs/heads/ice-dev' ||
+       github.ref == 'refs/heads/demo' ||
+       github.ref == 'refs/heads/ice-demo')
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Get git branch
+      id: git-branch
+      run: |
+        if [ $REF == 'refs/heads/master' ]
+        then
+          echo "::set-output name=stage::prod"
+          echo "::set-output name=domain::widget.onramper.com"
+        elif [ $REF == 'refs/heads/dev' ]
+        then
+          echo "::set-output name=stage::dev"
+          echo "::set-output name=domain::widget.onramper.dev"
+        elif [ $REF == 'refs/heads/ice-master' ]
+        then
+          echo "::set-output name=stage::prod"
+          echo "::set-output name=domain::iceberg.onramper.com"
+        elif [ $REF == 'refs/heads/ice-dev' ]
+        then
+          echo "::set-output name=stage::dev"
+          echo "::set-output name=domain::iceberg.onramper.dev"
+        elif [ $REF == 'refs/heads/ice-demo' ]
+        then
+          echo "::set-output name=stage::demo"
+          echo "::set-output name=domain::icebergdemo.onramper.dev"
+        elif [ $REF == 'refs/heads/demo' ]
+        then
+          echo "::set-output name=stage::demo"
+          echo "::set-output name=domain::demo.onramper.dev"
+        else
+          exit 1
+        fi
+      env:
+        REF: ${{ github.ref }}
+    - name: Get Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16.x'
+        cache: 'npm'
+        cache-dependency-path: |
+          package/package-lock.json
+          iframe/package-lock.json
+    - run: (cd package && npm ci --omit peer && npm run build:$STAGE)
+      env:
+        STAGE: ${{ steps.git-branch.outputs.stage }}
+    - run: (cd iframe && npm ci && npm run build:$STAGE)
+      env:
+        STAGE: ${{ steps.git-branch.outputs.stage }}
+    - name: Deploy to static site
+      uses: onramper/action-deploy-aws-static-site@v2
+      with:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        domain: ${{ steps.git-branch.outputs.domain }}
+        publish_dir: './iframe/build'
+  publish:
+    needs: [lint-and-build]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Get Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16.x'
+        cache: 'npm'
+        cache-dependency-path: |
+          package/package-lock.json
+        registry-url: 'https://registry.npmjs.org'
+    - name: Clean install and build
+      run: (cd package && npm ci --omit peer && npm run build:prod)
+    - name: Publish to npm
+      run: (cd package && npm publish)
+      env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
