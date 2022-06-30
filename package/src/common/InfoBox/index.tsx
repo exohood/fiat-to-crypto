@@ -1,9 +1,11 @@
+
 import React, { useState, useEffect, useContext } from "react";
 import styles from "./styles.module.css";
 import { CSSTransition } from "react-transition-group";
 import ButtonAction from "../ButtonAction";
 import { APIContext } from "../../ApiContext";
 import { URLize } from "./utils";
+import cancelIcon from "../../icons/cancel.svg";
 
 type InfoBoxType = {
   type?: "info" | "error" | "notification";
@@ -23,10 +25,11 @@ const InfoBox = React.forwardRef<
 >((props, ref) => {
   const [disableButton, setDisableButton] = useState(false);
   const { collected } = useContext(APIContext);
+  let icon;
+  let header;
 
   const {
     type = "info",
-    onDismissClick = () => null,
     canBeDismissed = false,
     className = "",
     actionText = "See more",
@@ -36,6 +39,8 @@ const InfoBox = React.forwardRef<
   switch (type) {
     case "error":
       classBoxType = "infobox--error";
+      icon = cancelIcon;
+      header = "Something went wrong";
       break;
     case "notification":
       classBoxType = "infobox--notification";
@@ -79,7 +84,10 @@ const InfoBox = React.forwardRef<
       defaultRef.current &&
       props.focus
     ) {
-      defaultRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      defaultRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
     }
   }, [defaultRef, props.focus]);
 
@@ -104,22 +112,18 @@ const InfoBox = React.forwardRef<
           !props.children ? styles["infobox-simple"] : ""
         } ${styles[classBoxType]} ${className}`}
       >
-        {typeof message === "string" && props.message && (
-          <>
-            <span className={styles.text}>{message}</span>
-            <br />
-          </>
+        {type === "error" && (
+          <img style={{ marginRight: "0.8rem" }} src={icon} alt="cancellogo" />
         )}
         <div
           className={`${styles["child-node"]} ${
             !props.children ? styles["child-node-simple"] : ""
           }`}
         >
-          {props.message && typeof message !== "string" ? (
-            <span className={styles.text}>{message}</span>
-          ) : (
-            <span className={styles.text}>{props.children}</span>
-          )}
+          <>
+            <b style={{ marginBottom: "0.1rem" }}>{header}</b>
+            <span className={styles.text}>{props.children ?? message}</span>
+          </>
           {props.onActionClick && (
             <span
               style={{
@@ -131,16 +135,11 @@ const InfoBox = React.forwardRef<
                 className={`${styles["button-action"]}`}
                 size="small"
                 text={disableButton ? "Loading..." : actionText}
-                onClick={_onActionClick} /* disabled={disableButton} */
+                onClick={_onActionClick}
               />
             </span>
           )}
         </div>
-        {canBeDismissed && (
-          <span className={styles["close-button"]} onClick={onDismissClick}>
-            ✖
-          </span>
-        )}
       </div>
     </CSSTransition>
   );
