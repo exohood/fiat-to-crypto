@@ -16,6 +16,7 @@ type InputCryptoAddrType = {
   className: string;
   type?: string;
   hint?: string;
+  onClick?: () => void;
   onHelpClick?: () => void;
   disabled?: boolean;
 };
@@ -59,7 +60,7 @@ const InputCryptoAddr = React.forwardRef<HTMLDivElement, InputCryptoAddrType>(
       },
       [handleInputChange, collected.cryptocurrencyAddress]
     );
-
+    
     const getWalletAddrs = useCallback(async () => {
       setNewInfo(undefined);
       const importedWallets = await ProviderManager.getAccounts();
@@ -115,6 +116,7 @@ const InputCryptoAddr = React.forwardRef<HTMLDivElement, InputCryptoAddrType>(
             : undefined
         }
         onIconClick={getWalletAddrs}
+        onClick={props.onClick}
         ref={ref}
         hint={
           ProviderManager.providerName && collected.isAddressEditable
