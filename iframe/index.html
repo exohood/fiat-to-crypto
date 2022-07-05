@@ -7,8 +7,28 @@
     <title>Document</title>
     <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://www.googleoptimize.com/optimize.js?id='OPT-5WHNW5V'"></script>
+    <!-- anti-flicker snippet (recommended)  -->
+    <script>
+        (function (a, s, y, n, c, h, i, d, e) {
+            s.className += ' ' + y;
+            h.start = 1 * new Date;
+            h.end = i = function () {
+                s.className = s.className.replace(RegExp(' ?' + y), '')
+            };
+            (a[n] = a[n] || []).hide = h;
+            setTimeout(
+                function () {
+                    i();
+                    h.end = null
+                }, c);
+            h.timeout = c;
+        })
+            (window, document.documentElement, 'async-hide', 'dataLayer', 4000, { 'OPT-5WHNW5V': true });
+    </script>
 
     <script src="dist/index.js"></script>
+    <style>.async-hide { opacity: 0 !important} </style>
     <style>
         html,
         body {
