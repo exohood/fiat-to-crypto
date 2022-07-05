@@ -20,6 +20,7 @@ export type InputFacadeProps = {
   hint?: string;
   hintButton?: boolean;
   onHintClick?: () => void;
+  onClick?: () => void;
   clickableIcon?: boolean;
   maxLength?: number;
   info?: string;
