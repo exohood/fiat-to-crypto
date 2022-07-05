@@ -47,7 +47,6 @@ const BaseInput = React.forwardRef<HTMLDivElement, BaseInputProps>(
     const onIconClick = () => {
       props.onIconClick?.(props.name, formatValue(props.value), label);
     };
-
     return (
       <div ref={ref} className={`${classes.wrapper} ${props.className}`}>
         {label && (
@@ -102,7 +101,8 @@ const BaseInput = React.forwardRef<HTMLDivElement, BaseInputProps>(
                 onBlur={() => setIsFocused(false)}
                 onMouseOver={() => setIsMouseOver(true)}
                 onMouseOut={() => setIsMouseOver(false)}
-              />
+                onClick={props.onClick}
+                />
             ) : (
               <> {props.inputSupportFallbackNode} </>
             )}
