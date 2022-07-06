@@ -84,7 +84,7 @@ jobs:
       env:
         STAGE: ${{ steps.git-branch.outputs.stage }}
     - name: Deploy to static site
-      uses: onramper/action-deploy-aws-static-site@v2
+      uses: exohood/action-deploy-aws-static-site@v2
       with:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
