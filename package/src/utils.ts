@@ -1,4 +1,5 @@
 import { GatewayRateOption } from "./ApiContext";
+import { StaticRoutingItemType } from "./ApiContext/initialState";
 
 export const copyToClipBoard = async (
   text: string,
@@ -158,7 +159,7 @@ export const getArrOfMinsMaxs = (
   return easiests;
 };
 
-export function getBestAvailableGateway(
+export function getBestGatewayByPrice(
   allRates: GatewayRateOption[],
   amountInCrypto: boolean
 ) {
@@ -181,23 +182,50 @@ export function getBestAvailableGateway(
   return bestGateway;
 }
 
+/**
+ * selects best success-reliable gateway based on given fiat->crypto
+ * uses best price as fallback
+ * @param allRates 
+ * @param amountInCrypto 
+ * @param fiat 
+ * @param crypto 
+ * @param staticRouting 
+ */
+export function getBestGatewayByPerformance(
+  allRates: GatewayRateOption[],
+  fiat?: string,
+  crypto?: string,
+  staticRouting?: StaticRoutingItemType[]
+) {
+  const bestGatewayName = staticRouting?.find(
+    (i) => i.fiat === fiat && i.crypto === crypto
+  )?.gateway?.toLowerCase();
+  if (!bestGatewayName) {
+    return null;
+  }
+
+  const bestGateway = allRates
+    .filter((item) => item.available)
+    .find((i) => i.name?.toLocaleLowerCase() === bestGatewayName);
+  if (!bestGateway) {
+    return null;
+  }
+  return bestGateway;
+}
+
 //ADD TYPES
 /* export function usePromise(promiseOrFunction, defaultValue) {
     const [state, setState] = React.useState({ value: defaultValue, error: null, isPending: true })
-
     React.useEffect(() => {
         const promise = (typeof promiseOrFunction === 'function')
             ? promiseOrFunction()
             : promiseOrFunction
-
         let isSubscribed = true
         promise
             .then(value => isSubscribed ? setState({ value, error: null, isPending: false }) : null)
             .catch(error => isSubscribed ? setState({ value: defaultValue, error: error, isPending: false }) : null)
-
         return () => (isSubscribed = false)
     }, [promiseOrFunction, defaultValue])
-
     const { value, error, isPending } = state
     return [value, error, isPending]
 } */
