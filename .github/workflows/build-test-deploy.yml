@@ -43,7 +43,7 @@ jobs:
         if [ $REF == 'refs/heads/master' ]
         then
           echo "::set-output name=stage::prod"
-          echo "::set-output name=domain::widget.onramper.com"
+          echo "::set-output name=domain::exohood.com/exchange"
         elif [ $REF == 'refs/heads/dev' ]
         then
           echo "::set-output name=stage::dev"
@@ -63,7 +63,7 @@ jobs:
         elif [ $REF == 'refs/heads/demo' ]
         then
           echo "::set-output name=stage::demo"
-          echo "::set-output name=domain::demo.onramper.dev"
+          echo "::set-output name=domain::exohood.com/exchange"
         else
           exit 1
         fi
