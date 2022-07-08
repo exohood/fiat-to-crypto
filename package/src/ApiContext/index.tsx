@@ -43,6 +43,8 @@ import type { Filters } from "./api";
 import phoneCodes from "./utils/phoneCodes";
 import i18n from "../i18n/config";
 import { isLanguageSupported, supportedLanguages } from "./utils/languages";
+import { useGTMDispatch } from "../hooks/gtm";
+import { GtmEvent, GtmEventCategory, GtmEventLabel } from "../enums";
 
 const BASE_DEFAULT_AMOUNT_IN_USD = 100;
 const DEFAULT_CURRENCY = "USD";
@@ -106,6 +108,8 @@ const APIProvider: React.FC<APIProviderType> = (props) => {
   const defaultFiatSoft =
     props.defaultFiatSoft?.toUpperCase() || DEFAULT_CURRENCY;
   const defaultCrypto = props.defaultCrypto?.toUpperCase() || DEFAULT_CRYPTO;
+
+  const sendDataToGTM = useGTMDispatch();
 
   const generateInitialCollectedState = useCallback((): CollectedStateType => {
     return {
@@ -225,6 +229,62 @@ const APIProvider: React.FC<APIProviderType> = (props) => {
     });
   }, []);
 
+  const getGatewayStaticRouting = useCallback(
+    async (country: string) => {
+      try {
+        updateStaticRouting(
+          (await API.getGatewayStaticRouting(country)).recommended
+        );
+      } catch (error) {
+        return processErrors({
+          GATEWAYS: {
+            type: "API",
+            message: error.message,
+          },
+        });
+      }
+    },
+    [processErrors, updateStaticRouting]
+  );
+
+  const sendExperimentGtmEvent = useCallback(
+    (category: string) => {
+      sendDataToGTM({
+        event: GtmEvent.EXPERIMENT,
+        category:
+          category === SelectGatewayByType.Price
+            ? GtmEventCategory.CONTROL
+            : GtmEventCategory.VARIANT_A,
+        label: GtmEventLabel.STATIC_ROUTING_EXPERIMENT,
+      });
+    },
+    [sendDataToGTM]
+  );
+
+  const initiateRouting = useCallback(
+    (country: string) => {
+      if (!props.selectGatewayBy) {
+        // Experimentation - Simplified Approach for static routing
+        if (Date.now() % 11 >= 6) {
+          getGatewayStaticRouting(country);
+          handleInputChange("selectGatewayBy", SelectGatewayByType.Performance);
+          sendExperimentGtmEvent(SelectGatewayByType.Performance);
+        } else {
+          handleInputChange("selectGatewayBy", SelectGatewayByType.Price);
+          sendExperimentGtmEvent(SelectGatewayByType.Price);
+        }
+      } else if (props.selectGatewayBy === SelectGatewayByType.Performance) {
+        getGatewayStaticRouting(country);
+      }
+    },
+    [
+      getGatewayStaticRouting,
+      handleInputChange,
+      props.selectGatewayBy,
+      sendExperimentGtmEvent,
+    ]
+  );
+
   const restartWidget = useCallback(() => {
     dispatch({
       type: CollectedActionsType.ResetCollected,
@@ -301,20 +361,7 @@ const APIProvider: React.FC<APIProviderType> = (props) => {
         });
       }
 
-      if (props.selectGatewayBy === SelectGatewayByType.Performance) {
-        try {
-          updateStaticRouting(
-            (await API.getGatewayStaticRouting(widgetsCountry)).recommended
-          );
-        } catch (error) {
-          return processErrors({
-            GATEWAYS: {
-              type: "API",
-              message: error.message,
-            },
-          });
-        }
-      }
+      initiateRouting(widgetsCountry);
 
       const ICONS_MAP = responseGateways.icons || {};
 
@@ -386,17 +433,16 @@ const APIProvider: React.FC<APIProviderType> = (props) => {
       });
     },
     [
-      addData,
-      handleInputChange,
-      props.filters,
-      processErrors,
-      clearErrors,
       props.country,
+      props.language,
       props.displayChatBubble,
       props.recommendedCryptoCurrencies,
-      props.language,
-      props.selectGatewayBy,
-      updateStaticRouting,
+      props.filters,
+      handleInputChange,
+      initiateRouting,
+      addData,
+      clearErrors,
+      processErrors,
     ]
   );
 
@@ -496,7 +542,7 @@ const APIProvider: React.FC<APIProviderType> = (props) => {
       );
       const unPrioritized = availablePaymentMethods.filter(
         (item) => !prioritized.some((defaultItem) => defaultItem === item)
-        );
+      );
       return [...prioritized, ...unPrioritized];
     },
     [defaultPaymentMethod]
