@@ -4,7 +4,7 @@ theme styles
 .theme {
   --primary-color: #0316c1;
   --error-color: #d25656;
-  --success-color: #3ad66f;
+  --success-color: #35a461;
   --text-dark-color: #292d32;
   --text-light-color: #7c7d82;
   --grey-light-color: #abadb8;
@@ -34,8 +34,8 @@ theme styles
   --pt-heading: 12px;
   --pb-heading: 35px;
   /* header */
-  --header-height: 82px;
-  --header-tabs-height: 63px;
+  --header-height: 65px;
+  --header-tabs-height: 54px;
   /* lists */
   --list-hover-color: #f7fafd;
   --list-active-color: #6c77dc;
@@ -173,7 +173,6 @@ components
 }
 
 /* .row-fields__child {
-
 } */
 
 .row-fields__child + .row-fields__child {
@@ -336,7 +335,7 @@ li {
 }
 
 .shrink-0 {
-    flex-shrink: 0;
+  flex-shrink: 0;
 }
 
 /* general transition */
