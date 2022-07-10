@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
-import TagManager from "react-gtm-module";
-import OnramperWidget, { Onramper } from "@onramper/widget";
+import React from "react";
+import ExoExchangeAPI, { Exchange } from "@exohood/exohood-fiat-to-crypto";
 
 const com_key = "pk_prod_trQ0nGBcmU_JY41N8Tl50Q00";
 const dev_key = "pk_test_oDsXkHokDdr06zZ0_sxJGw00";
@@ -21,8 +20,8 @@ const fontFamily = getParam("fontFamily", "'Inter', sans-serif");
 const defaultAmount = Number(getParam("defaultAmount", "200"));
 const defaultCrypto = getParam("defaultCrypto", "BTC");
 const defaultFiat = getParam("defaultFiat");
+const defaultFiatSoft = getParam("defaultFiatSoft");
 const defaultPaymentMethod = getArrayParam("defaultPaymentMethod");
-const defaultPaymentMethod = getParam("defaultPaymentMethod");
 const addresses = getAddressesParam();
 const onlyCryptos = getArrayParam("onlyCryptos");
 const excludeCryptos = getArrayParam("excludeCryptos");
@@ -51,6 +50,7 @@ const recommendedCryptoCurrencies = getArrayParam(
   "recommendedCryptoCurrencies"
 );
 const darkMode = getParam("darkMode");
+const selectGatewayBy = getParam("selectGatewayBy");
 
 if (gFontPath) loadGoogleFont(gFontPath);
 
@@ -65,17 +65,6 @@ function App() {
     height: "100%",
     backgroundColor: inIframe() ? "transparent" : "whitesmoke",
   } as React.CSSProperties;
-
-  // Google Tag Manager
-  useEffect(() => {
-    const tagManagerArgs = {
-      gtmId: process.env.REACT_APP_GTM_ID ?? '',
-      dataLayer: {
-        apiKey: apiKey,
-      },
-    };
-    TagManager.initialize(tagManagerArgs);
-  }, []);
 
   return (
     <>
@@ -101,6 +90,7 @@ function App() {
               onlyGateways: onlyGateways,
               onlyFiat: onlyFiat,
             }}
+            selectGatewayBy={selectGatewayBy}
             country={country}
             language={language}
             isAddressEditable={
