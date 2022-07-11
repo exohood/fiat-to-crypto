@@ -5,6 +5,13 @@ import { APIContext } from "../../../ApiContext";
 import ErrorMessage from "../../../common/ErrorMessage/ErrorMessage";
 import { ReactComponent as ArrowSwapIcon } from "../../../icons/swap-arrows.svg";
 import { useTranslation } from "react-i18next";
+import {
+  GtmEvent,
+  GtmEventAction,
+  GtmEventCategory,
+  GtmEventLabel,
+} from "../../../enums";
+import { useGTMDispatch } from "../../../hooks/gtm";
 
 const ExpectedAmountPreview: React.FC = () => {
   const { t } = useTranslation();
@@ -13,12 +20,20 @@ const ExpectedAmountPreview: React.FC = () => {
 
   const [expectedCrypto, setExpectedCrypto] = useState(0);
   const [errorMessage, setErrorMessage] = useState<string>();
+  const sendDataToGTM = useGTMDispatch();
 
   const unitName = collected.amountInCrypto
     ? collected.selectedCurrency?.name
     : collected.selectedCrypto?.name;
 
   const swapCategories = useCallback(() => {
+    const gtmData = {
+      event: GtmEvent.ELEMENT_CLICK,
+      action: GtmEventAction.TRANSACTION_FORM,
+      category: GtmEventCategory.BUTTON,
+      label: GtmEventLabel.AMOUNT_SWITCH,
+    };
+    sendDataToGTM(gtmData);
     if (collected.bestExpectedCrypto !== 0) {
       inputInterface.handleInputChange("amount", collected.bestExpectedCrypto);
     }
@@ -29,7 +44,7 @@ const ExpectedAmountPreview: React.FC = () => {
 
     const inputNode = document.getElementById("editable-amount");
     inputNode && inputNode.focus();
-  }, [collected.amountInCrypto, collected.bestExpectedCrypto, inputInterface]);
+  }, [collected.amountInCrypto, collected.bestExpectedCrypto, inputInterface, sendDataToGTM]);
 
   useEffect(() => {
     const setAmountByBestRateAvailable = () => {
