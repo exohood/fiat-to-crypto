@@ -14,7 +14,7 @@
     "buy": "Buy"
   },
   "footer": {
-    "onramperPrefix": "Powered by"
+    "exohoodPrefix": "Powered by"
   },
   "menu": {
     "title": "Menu",
@@ -25,7 +25,14 @@
       "help": "Help & Support",
       "support": {
         "moonpay": "MoonPay Support",
-        "uniswap": "Uniswap Support"
+        "uniswap": "Uniswap Support",
+        "btcdirect": "BTCDirect Support",
+        "coinify": "Coinify Support",
+        "indacoin": "Indacoin Support",
+        "mercuryo": "Mercuryo Support",
+        "utorg": "Utorg Support",
+        "wyre": "Wyre Support",
+        "xanpool": "Xanpool Support"
       }
     }
   },
