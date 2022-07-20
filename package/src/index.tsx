@@ -8,21 +8,24 @@ import { APIProvider } from "./ApiContext";
 import type { APIProviderType } from "./ApiContext";
 import "./polyfills/composedpath.polyfill";
 import { ErrorBoundary } from "@sentry/react";
-import { on, EVENTS } from "./Onramper";
+import { on, EVENTS } from "./Exohood";
 
 import "./i18n/config";
 
 import "./isolateinheritance.css";
 import "./normalize.min.css";
+import { GTM_ID } from "./ApiContext/api/constants";
+import { GTMProvider } from "./hooks/gtm";
+import Cookies from "js-cookie";
 
-type OnramperWidgetProps = Omit<APIProviderType, "themeColor"> & {
+type ExohoodWidgetProps = Omit<APIProviderType, "themeColor"> & {
   color?: string;
   fontFamily?: string;
   className?: string;
   displayChatBubble?: boolean;
 };
 
-const OnramperWidget: React.FC<OnramperWidgetProps> = (props) => {
+const ExohoodWidget: React.FC<ExohoodWidgetProps> = (props) => {
   const [flagRestart, setFlagRestart] = React.useState(0);
 
   const {
@@ -35,6 +38,11 @@ const OnramperWidget: React.FC<OnramperWidgetProps> = (props) => {
     "--primary-color": color,
     "--font-family": fontFamily,
   } as React.CSSProperties;
+
+  const gtmParams = {
+    gtmId: GTM_ID,
+    dataLayer: { apiKey: props.API_KEY, clientId: Cookies.get("_ga") },
+  };
 
   return (
     <div
@@ -54,43 +62,46 @@ const OnramperWidget: React.FC<OnramperWidgetProps> = (props) => {
           setFlagRestart((old) => ++old);
         }}
       >
-        <NavProvider>
-          <APIProvider
-            API_KEY={props.API_KEY}
-            defaultAmount={props.defaultAmount}
-            defaultAddrs={props.defaultAddrs}
-            defaultCrypto={props.defaultCrypto}
-            defaultFiat={props.defaultFiat}
-            defaultFiatSoft={props.defaultFiatSoft}
-            defaultPaymentMethod={props.defaultPaymentMethod}
-            filters={props.filters}
-            country={props.country}
-            language={props.language}
-            isAddressEditable={props.isAddressEditable}
-            themeColor={color.slice(1)}
-            displayChatBubble={props.displayChatBubble}
-            amountInCrypto={props.amountInCrypto}
-            partnerContext={props.partnerContext}
-            redirectURL={props.redirectURL}
-            minAmountEur={props.minAmountEur}
-            supportSell={props.supportSell}
-            supportBuy={props.supportBuy}
-            isAmountEditable={props.isAmountEditable}
-            recommendedCryptoCurrencies={props.recommendedCryptoCurrencies}
-          >
-            <div style={{ flexGrow: 1, display: "flex" }}>
-              <NavContainer home={<BuyCryptoView />} />
-            </div>
-          </APIProvider>
-        </NavProvider>
+        <GTMProvider state={gtmParams}>
+          <NavProvider>
+            <APIProvider
+              API_KEY={props.API_KEY}
+              defaultAmount={props.defaultAmount}
+              defaultAddrs={props.defaultAddrs}
+              defaultCrypto={props.defaultCrypto}
+              defaultFiat={props.defaultFiat}
+              defaultFiatSoft={props.defaultFiatSoft}
+              defaultPaymentMethod={props.defaultPaymentMethod}
+              filters={props.filters}
+              country={props.country}
+              language={props.language}
+              isAddressEditable={props.isAddressEditable}
+              themeColor={color.slice(1)}
+              displayChatBubble={props.displayChatBubble}
+              amountInCrypto={props.amountInCrypto}
+              partnerContext={props.partnerContext}
+              redirectURL={props.redirectURL}
+              minAmountEur={props.minAmountEur}
+              supportSell={props.supportSell}
+              supportBuy={props.supportBuy}
+              isAmountEditable={props.isAmountEditable}
+              recommendedCryptoCurrencies={props.recommendedCryptoCurrencies}
+              selectGatewayBy={props.selectGatewayBy}
+            >
+              <div style={{ flexGrow: 1, display: "flex" }}>
+                <NavContainer home={<BuyCryptoView />} />
+              </div>
+            </APIProvider>
+          </NavProvider>
+        </GTMProvider>
       </ErrorBoundary>
     </div>
   );
 };
 
-const initialize = (selector: string, props: OnramperWidgetProps) => {
+const initialize = (selector: string, props: ExohoodWidgetProps) => {
   const domContainer = document.querySelector(selector);
-  ReactDOM.render(<OnramperWidget {...props} />, domContainer);
+  ReactDOM.render(<ExohoodWidget {...props} />, domContainer);
 };
 
 export interface EventContext {
@@ -100,7 +111,7 @@ export interface EventContext {
 }
 
 const ev = { ...EVENTS };
-const Onramper = {
+const Exohood = {
   on,
   EVENTS: ev,
 } as {
@@ -108,5 +119,5 @@ const Onramper = {
   EVENTS: typeof ev;
 };
 
-export default (props: OnramperWidgetProps) => <OnramperWidget {...props} />;
-export { initialize, Onramper };
+export default (props: ExohoodWidgetProps) => <ExohoodWidget {...props} />;
+export { initialize, Exohood };
