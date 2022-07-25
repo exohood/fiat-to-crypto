@@ -1,0 +1,74 @@
+.view {
+  background-color: var(--primary-var-bg-color);
+  position: relative;
+}
+
+.view::after {
+  content: "";
+  position: absolute;
+  width: 45.29%;
+  height: 177.21%;
+  min-height: 1000px;
+  left: 41%;
+  top: 23%;
+  background: linear-gradient(
+    143.2deg,
+    var(--primary-var-gradient-color) 21.28%,
+    rgba(14, 34, 214, 0) 71.97%
+  );
+  transform: rotate(30deg);
+}
+
+.view::before {
+  content: "";
+  position: absolute;
+  width: 76%;
+  height: 125%;
+  min-height: 1000px;
+  left: 16.01%;
+  top: -22.88%;
+  background: linear-gradient(
+    143.2deg,
+    var(--primary-var-gradient-color) 21.28%,
+    rgba(14, 34, 214, 0) 71.97%
+  );
+  transform: rotate(30deg);
+}
+
+.view main,
+.view nav {
+  position: relative;
+  z-index: 3;
+}
+
+.wrapper {
+  color: var(--primary-var-text-color);
+  padding-top: 60px;
+  padding-bottom: 30px;
+}
+
+.checkmark-wrapper {
+  --main-crycle-color: var(--success-color);
+  --check-color: var(--background-color);
+  --secondary-color: var(--primary-var-sec-color);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.wrapper h1 {
+  width: 100%;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24px;
+  text-align: center;
+  margin-top: 38px;
+}
+
+.wrapper h2 {
+  font-size: 14px;
+  line-height: 164%;
+  text-align: center;
+  letter-spacing: 0.015em;
+  margin-top: 14px;
+}
