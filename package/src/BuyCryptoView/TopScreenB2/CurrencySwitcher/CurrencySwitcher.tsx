@@ -12,7 +12,13 @@ import { ItemCategory } from "./../../../ApiContext/initialState";
 import OverlayPicker from "../../../common/OverlayPicker/OverlayPicker";
 import { ViewListItemType } from "../../../common/ViewList/ViewList.models";
 import CryptoListItemRight from "../../CryptoListItemRight/CryptoListItemRight";
-import { CurrencyIcon } from "@onramper/flag-icons";
+import { CurrencyIcon } from "@exohood/flag-icons";
+import { GtmEvent, GtmEventAction, GtmEventCategory } from "../../../enums";
+import { useGTMDispatch } from "../../../hooks/gtm";
+import {
+  inCurrencyClickGtmEvent,
+  outCurrencyClickGtmEvent,
+} from "../../../hooks/gtm/buyCryptoViewEvents";
 
 const Skeleton: React.FC = () => {
   const handleJsx = (
@@ -44,6 +50,7 @@ const CurrencySwitcher: React.FC = () => {
   const { t } = useTranslation();
   const { collected, data } = useContext(APIContext);
   const { nextScreen, backScreen } = useContext(NavContext);
+  const sendDataToGTM = useGTMDispatch();
 
   const [pair, setPair] = useState<
     ({ item?: ItemType; hasOptions: boolean } | undefined)[]
@@ -51,12 +58,28 @@ const CurrencySwitcher: React.FC = () => {
 
   const handleItemClick = useCallback(
     (name: string, index: number, item: ItemType) => {
-      if (name === "crypto") data.handleCryptoChange(item);
-      else if (name === "currency") data.handleCurrencyChange(item);
-
+      let gtmData;
+      if (name === "crypto") {
+        gtmData = {
+          event: GtmEvent.ELEMENT_CLICK,
+          action: GtmEventAction.OUT_CURRENCY_SELECTION,
+          category: GtmEventCategory.DROPDOWN_VALUE,
+          label: item.name,
+        };
+        data.handleCryptoChange(item);
+      } else if (name === "currency") {
+        gtmData = {
+          event: GtmEvent.ELEMENT_CLICK,
+          action: GtmEventAction.IN_CURRENCY_SELECTION,
+          category: GtmEventCategory.DROPDOWN_VALUE,
+          label: item.name,
+        };
+        data.handleCurrencyChange(item);
+      }
+      sendDataToGTM(gtmData);
       backScreen();
     },
-    [backScreen, data]
+    [backScreen, data, sendDataToGTM]
   );
 
   const getSortedCryptoListItem = useCallback(() => {
@@ -119,10 +142,17 @@ const CurrencySwitcher: React.FC = () => {
           indexSelected={data.availableCurrencies.findIndex(
             (m) => m.id === collected.selectedCurrency?.id
           )}
-          items={data.availableCurrencies.map((i) => ({
-            ...i,
-            iconSvg: <CurrencyIcon name={i.id} />,
-          }))}
+          items={data.availableCurrencies
+            .sort((a, b) => {
+              if (a.info && b.info) {
+                return a.info.localeCompare(b.info);
+              }
+              return a.name.localeCompare(b.name);
+            })
+            .map((i) => ({
+              ...i,
+              iconSvg: <CurrencyIcon name={i.id} />,
+            }))}
           onItemClick={handleItemClick}
           searchable
         />
@@ -139,12 +169,13 @@ const CurrencySwitcher: React.FC = () => {
   const handleDropdown = useCallback(
     (item?: ItemType) => {
       if (item?.currencyType === ItemCategory.Crypto) {
+        sendDataToGTM(outCurrencyClickGtmEvent);
         return openPickCrypto();
       }
-
+      sendDataToGTM(inCurrencyClickGtmEvent);
       openPickCurrency();
     },
-    [openPickCrypto, openPickCurrency]
+    [openPickCrypto, openPickCurrency, sendDataToGTM]
   );
 
   const getIconClassName = useCallback(
