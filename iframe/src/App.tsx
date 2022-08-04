@@ -1,7 +1,7 @@
 import React from "react";
-import ExoExchangeAPI, { Exchange } from "@exohood/exohood-fiat-to-crypto";
+import ExohoodWidget, { Exohood } from "@Exohood/widget";
 
-const com_key = "pk_prod_trQ0nGBcmU_JY41N8Tl50Q00";
+const com_key = "pk_prod_dPti80ZmGlnu0B1tZoMtDnE0rRMck5I4M02b8LsDeRA0";
 const dev_key = "pk_test_oDsXkHokDdr06zZ0_sxJGw00";
 const l2_key = "pk_test_RJ3mpUzEyukuEvCeCvyByDY0B0zsDD1myjYUhRhu0480";
 
@@ -54,7 +54,7 @@ const selectGatewayBy = getParam("selectGatewayBy");
 
 if (gFontPath) loadGoogleFont(gFontPath);
 
-Onramper.on(Onramper.EVENTS.ALL, (context) => {
+Exohood.on(Exohood.EVENTS.ALL, (context) => {
   window.parent.postMessage(context, "*"); //  `*` on any domain
 });
 
@@ -69,9 +69,9 @@ function App() {
   return (
     <>
       <div style={style}>
-        {/*         <div className={'onramper-pane'}></div> */}
+        {/*         <div className={'Exohood-pane'}></div> */}
         <div className={"widget-container"}>
-          <OnramperWidget
+          <ExohoodWidget
             API_KEY={apiKey}
             color={defaultColor}
             fontFamily={fontFamily}
@@ -124,7 +124,9 @@ function App() {
 }
 
 function getParam(name: string, defaultValue?: string): string | undefined {
-  const value = new URLSearchParams(window.location.search).get(name);
+  const value = new URLSearchParams(
+    window.location.search.replace(/\/+$/, "")
+  ).get(name);
   if (value === null) return defaultValue;
   try {
     return decodeURIComponent(value);
