@@ -1,5 +1,5 @@
 import React from "react";
-import ExohoodWidget, { Exohood } from "@Exohood/widget";
+import fiat-to-crypto, { exohood } from "@exohood/widget";
 
 const com_key = "pk_prod_dPti80ZmGlnu0B1tZoMtDnE0rRMck5I4M02b8LsDeRA0";
 const dev_key = "pk_test_oDsXkHokDdr06zZ0_sxJGw00";
@@ -19,7 +19,7 @@ const defaultColor = `#${getParam("color", "0316C1")}`;
 const fontFamily = getParam("fontFamily", "'Inter', sans-serif");
 const defaultAmount = Number(getParam("defaultAmount", "200"));
 const defaultCrypto = getParam("defaultCrypto", "BTC");
-const defaultFiat = getParam("defaultFiat");
+const defaultFiat = getParam("defaultFiat", "USD");
 const defaultFiatSoft = getParam("defaultFiatSoft");
 const defaultPaymentMethod = getArrayParam("defaultPaymentMethod");
 const addresses = getAddressesParam();
@@ -51,10 +51,16 @@ const recommendedCryptoCurrencies = getArrayParam(
 );
 const darkMode = getParam("darkMode");
 const selectGatewayBy = getParam("selectGatewayBy");
+const txnAmount = Number(getParam("txnAmount"));
+const txnFiat = getParam("txnFiat");
+const txnCrypto = getParam("txnCrypto");
+const txnPaymentMethod = getParam("txnPaymentMethod");
+const txnGateway = getParam("txnGateway");
+const skipTransactionScreen = getParam("skipTransactionScreen");
 
 if (gFontPath) loadGoogleFont(gFontPath);
 
-Exohood.on(Exohood.EVENTS.ALL, (context) => {
+exohood.on(exohood.EVENTS.ALL, (context) => {
   window.parent.postMessage(context, "*"); //  `*` on any domain
 });
 
@@ -69,9 +75,9 @@ function App() {
   return (
     <>
       <div style={style}>
-        {/*         <div className={'Exohood-pane'}></div> */}
+        {/*         <div className={'exohood-pane'}></div> */}
         <div className={"widget-container"}>
-          <ExohoodWidget
+          <fiat-to-crypto
             API_KEY={apiKey}
             color={defaultColor}
             fontFamily={fontFamily}
@@ -116,6 +122,18 @@ function App() {
             isAmountEditable={isAmountEditable}
             recommendedCryptoCurrencies={recommendedCryptoCurrencies}
             darkMode={darkMode === "true"}
+            skipTransactionScreen={
+              skipTransactionScreen === undefined
+                ? undefined
+                : skipTransactionScreen === "true"
+            }
+            transaction={{
+              txnAmount: isNaN(txnAmount) ? defaultAmount : txnAmount,
+              txnFiat: txnFiat ?? defaultFiat,
+              txnCrypto: txnCrypto ?? defaultCrypto,
+              txnPaymentMethod: txnPaymentMethod ?? "",
+              txnGateway: txnGateway ?? "",
+            }}
           />
         </div>
       </div>
