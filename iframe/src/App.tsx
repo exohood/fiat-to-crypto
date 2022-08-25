@@ -60,7 +60,7 @@ const skipTransactionScreen = getParam("skipTransactionScreen");
 
 if (gFontPath) loadGoogleFont(gFontPath);
 
-exohood.on(exohood.EVENTS.ALL, (context) => {
+Onramper.on(Onramper.EVENTS.ALL, (context) => {
   window.parent.postMessage(context, "*"); //  `*` on any domain
 });
 
@@ -75,9 +75,9 @@ function App() {
   return (
     <>
       <div style={style}>
-        {/*         <div className={'exohood-pane'}></div> */}
+        {/*         <div className={'onramper-pane'}></div> */}
         <div className={"widget-container"}>
-          <fiat-to-crypto
+          <OnramperWidget
             API_KEY={apiKey}
             color={defaultColor}
             fontFamily={fontFamily}
@@ -128,9 +128,9 @@ function App() {
                 : skipTransactionScreen === "true"
             }
             transaction={{
-              txnAmount: isNaN(txnAmount) ? defaultAmount : txnAmount,
-              txnFiat: txnFiat ?? defaultFiat,
-              txnCrypto: txnCrypto ?? defaultCrypto,
+              txnAmount: txnAmount ?? 0,
+              txnFiat: txnFiat ?? "",
+              txnCrypto: txnCrypto ?? "",
               txnPaymentMethod: txnPaymentMethod ?? "",
               txnGateway: txnGateway ?? "",
             }}
