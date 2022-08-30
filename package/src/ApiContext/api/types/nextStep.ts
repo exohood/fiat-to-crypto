@@ -157,6 +157,7 @@ type NextStepBase = {
   eventCategory?: string;
   eventLabel?: string;
   url?: string;
+  txId?: string;
 };
 
 export type PayamentReviewDataItem = {
