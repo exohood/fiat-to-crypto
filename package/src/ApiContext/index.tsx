@@ -16,7 +16,7 @@ import { mainReducer, CollectedActionsType, DataActionsType } from "./reducers";
 
 import { arrayUnique, arrayObjUnique } from "../utils";
 
-import LogoOnramper from "../icons/onramper_logo.svg";
+import Logoexohood from "../icons/exohood_logo.svg";
 
 import * as API from "./api";
 import type {
@@ -111,7 +111,6 @@ const APIProvider: React.FC<APIProviderType> = (props) => {
   const defaultFiatSoft =
     props.defaultFiatSoft?.toUpperCase() || DEFAULT_CURRENCY;
   const defaultCrypto = props.defaultCrypto?.toUpperCase() || DEFAULT_CRYPTO;
-
   const sendDataToGTM = useGTMDispatch();
   const is3pcCookiesSupported = useThirdPartyCookieCheck();
   const generateInitialCollectedState = useCallback((): CollectedStateType => {
@@ -266,13 +265,18 @@ const APIProvider: React.FC<APIProviderType> = (props) => {
     [sendDataToGTM]
   );
 
+  useEffect(() => {
+    handleInputChange("is3pcCookiesSupported", is3pcCookiesSupported);
+  }, [handleInputChange, is3pcCookiesSupported]);
+
   const initiateRouting = useCallback(
     async (country: string) => {
       const routingData = await getGatewayStaticRouting(country);
       if (!props.selectGatewayBy) {
         // Experimentation - Simplified Approach for static routing
         if (
-          Object.keys(typeof routingData === "object" && routingData).length &&
+          Object.keys(typeof routingData === "object" && routingData).length >
+            0 &&
           Date.now() % 10 >= 5
         ) {
           handleInputChange("selectGatewayBy", SelectGatewayByType.Performance);
@@ -280,6 +284,15 @@ const APIProvider: React.FC<APIProviderType> = (props) => {
         } else {
           handleInputChange("selectGatewayBy", SelectGatewayByType.Price);
           sendExperimentGtmEvent(SelectGatewayByType.Price);
+        }
+      } else {
+        if (
+          props.selectGatewayBy === SelectGatewayByType.Performance &&
+          Object.keys(typeof routingData === "object" && routingData).length > 0
+        )
+          handleInputChange("selectGatewayBy", SelectGatewayByType.Performance);
+        else {
+          handleInputChange("selectGatewayBy", SelectGatewayByType.Price);
         }
       }
     },
@@ -290,6 +303,7 @@ const APIProvider: React.FC<APIProviderType> = (props) => {
       sendExperimentGtmEvent,
     ]
   );
+
   const restartWidget = useCallback(() => {
     dispatch({
       type: CollectedActionsType.ResetCollected,
@@ -297,11 +311,9 @@ const APIProvider: React.FC<APIProviderType> = (props) => {
     });
   }, [generateInitialCollectedState]);
 
-  /* *********** */
   const init = useCallback(
     async (country?: string): Promise<ErrorObjectType | undefined | {}> => {
       const actualCountry = props.country || country;
-      handleInputChange("is3pcCookiesSupported", is3pcCookiesSupported);
       // The language provided explicitly via the '?language=' query parameter.
       let explicitLanguage;
       if (props.language) {
@@ -310,7 +322,7 @@ const APIProvider: React.FC<APIProviderType> = (props) => {
         else
           console.error(
             `The language set by the query parameter '?language=${props.language}' is not supported. ` +
-              `The following languages are currently supported by Onramper: [${supportedLanguages}]. ` +
+              `The following languages are currently supported by exohood: [${supportedLanguages}]. ` +
               `For more information, see: https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes.`
           );
       }
@@ -365,7 +377,6 @@ const APIProvider: React.FC<APIProviderType> = (props) => {
           },
         });
       }
-
       initiateRouting(widgetsCountry);
 
       const ICONS_MAP = responseGateways.icons || {};
@@ -444,7 +455,6 @@ const APIProvider: React.FC<APIProviderType> = (props) => {
       props.recommendedCryptoCurrencies,
       props.filters,
       handleInputChange,
-      is3pcCookiesSupported,
       initiateRouting,
       addData,
       clearErrors,
@@ -468,7 +478,6 @@ const APIProvider: React.FC<APIProviderType> = (props) => {
 
       if (gateways.length <= 0) return {};
       if (state.data.availableCryptos.length <= 0) return {};
-
       const actualCrypto =
         state.data.availableCryptos.find(
           (cryptoCurrency) => cryptoCurrency.id === _crypto?.id
@@ -488,7 +497,6 @@ const APIProvider: React.FC<APIProviderType> = (props) => {
           filtredGatewaysByCrypto[i].fiatCurrencies
         );
       }
-
       availableCurrencies = arrayObjUnique(availableCurrencies, "id");
       if (availableCurrencies.length <= 0) {
         return processErrors({
@@ -698,7 +706,6 @@ const APIProvider: React.FC<APIProviderType> = (props) => {
   > => {
     // IF RESPONSE IS NOT SET, DON'T DO ANYTHING
     if (!state.data.responseGateways) return;
-
     // IF THE AMOUNT IS NOT SET OR IT'S ===0 THEN NO AVAILABLE RATES
     if (!state.collected.amount || !isFinite(state.collected.amount)) {
       clearErrors();
@@ -796,11 +803,11 @@ const APIProvider: React.FC<APIProviderType> = (props) => {
       receivedCrypto: item.receivedCrypto,
       nextStep: item.nextStep,
       error: item.error,
-      icon: item.icon || LogoOnramper,
+      icon: item.icon || Logoexohood,
     }));
 
     // save to state.date
-    addData({ allRates: mappedAllRates });
+    addData({ allRates: mappedAllRates, isRatesLoaded: true });
 
     // IF THERE ARE NO RATES AVAILABLES THEN REDUCE UNAVAILABLE RATES TO AN ERRORS OBJECT
     const unavailableRates = responseRate.filter((item) => !item.available);
@@ -975,7 +982,7 @@ const APIProvider: React.FC<APIProviderType> = (props) => {
       .map(([identifier, currencies]) => {
         return {
           identifier: identifier,
-          icon: state.data.ICONS_MAP?.[identifier]?.icon || LogoOnramper,
+          icon: state.data.ICONS_MAP?.[identifier]?.icon || Logoexohood,
           error: {
             type: "OPTION",
             message: (() => {
@@ -1032,7 +1039,7 @@ const APIProvider: React.FC<APIProviderType> = (props) => {
       .map(([identifier, payments]) => {
         return {
           identifier: identifier,
-          icon: state.data.ICONS_MAP?.[identifier]?.icon || LogoOnramper,
+          icon: state.data.ICONS_MAP?.[identifier]?.icon || Logoexohood,
           error: {
             type: "OPTION",
             message: payments.reduce((acc, payment, index, arr) => {
@@ -1101,7 +1108,12 @@ const APIProvider: React.FC<APIProviderType> = (props) => {
           handlePaymentMethodChange,
           restartWidget,
         },
-        apiInterface: { init, executeStep, getRates, clearErrors },
+        apiInterface: {
+          init,
+          executeStep,
+          getRates,
+          clearErrors,
+        },
       }}
     >
       {props.children}
