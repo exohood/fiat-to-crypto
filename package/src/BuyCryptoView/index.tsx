@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import BodyBuyCrypto from "./BodyBuyCrypto";
 import styles from "../styles.module.css";
 import ChooseGatewayView from "../ChooseGatewayView/ChooseGatewayView";
@@ -9,6 +9,18 @@ import { APIContext, NextStep } from "../ApiContext";
 import * as API from "../ApiContext/api";
 import TabsHeader from "../common/Header/TabsHeader/TabsHeader";
 import { tabNames } from "./constants";
+import { triggerLandingViewGtmCtfEvent } from "../helpers/useGTM";
+import { GtmEvent } from "../enums";
+import {
+  buyTabClickGtmEvent,
+  sellTabClickGtmEvent,
+  menuBtnClickGtmEvent,
+  swapTabClickGtmEvent,
+} from "../hooks/gtm/buyCryptoViewEvents";
+import { useGTMDispatch } from "../hooks/gtm";
+import Menu from "../common/Header/Menu/Menu";
+import tabHeaderClasses from "./../common/Header/TabsHeader/TabsHeader.module.css";
+import { SWAP_URL } from "../ApiContext/api/constants";
 
 const BuyCryptoView: React.FC = () => {
   const [isFilled, setIsFilled] = useState(false);
@@ -18,17 +30,23 @@ const BuyCryptoView: React.FC = () => {
   const { data, inputInterface, collected, apiInterface } =
     useContext(APIContext);
   const [initLoadingFinished, setInitLoadingFinished] = useState(false);
+  const sendDataToGTM = useGTMDispatch();
 
   const { handlePaymentMethodChange } = data;
   const { init } = apiInterface;
-  const { errors } = collected;
-
+  const { errors, initScreen } = collected;
   //flagEffectInit used to call init again
   useEffect(() => {
     init().finally(() => {
       setInitLoadingFinished(true);
     });
   }, [init]);
+
+  useEffect(() => {
+    if (initLoadingFinished && buyStep && initScreen === "sell") {
+      nextScreen(<Step nextStep={buyStep} />);
+    }
+  }, [buyStep, initLoadingFinished, initScreen, nextScreen]);
 
   //listening to errors sent by APIContext
   useEffect(() => {
@@ -59,29 +77,71 @@ const BuyCryptoView: React.FC = () => {
   useEffect(() => {
     (async () => {
       try {
-        const nextStep = await API.sell("BTC", 0.1, "blockchain", {
-          amountInCrypto: true,
-          country: collected.selectedCountry,
-        });
-        setBuyStep(nextStep.nextStep);
+        if (collected.selectedCountry && collected.defaultCrypto) {
+          const crypto = collected.defaultCrypto ?? "BTC";
+          const fiat = collected.defaultFiat ?? "EUR";
+          const nextStep = await API.sell(crypto, fiat, 0.1, "blockchain", {
+            amountInCrypto: true,
+            country: collected.selectedCountry,
+          });
+
+          if (nextStep?.nextStep?.type) {
+            nextStep.nextStep.eventName = GtmEvent.CRYPTO_TO_FIAT;
+            nextStep.nextStep.eventCategory = nextStep.identifier;
+          }
+          setBuyStep(nextStep.nextStep);
+        }
       } catch (error) {
         console.error(error);
       }
     })();
-  }, [collected.selectedCountry]);
+  }, [
+    collected.defaultCrypto,
+    collected.defaultFiat,
+    collected.selectedCountry,
+  ]);
+
+  const handleTabItemClick = useCallback(
+    (i: number, label?: string) => {
+      console.log(label);
+      if (label?.includes("buy")) {
+        //buytab click
+        sendDataToGTM(buyTabClickGtmEvent);
+      } else if (label?.includes("sell")) {
+        //sell tab click
+        sendDataToGTM(sellTabClickGtmEvent);
+        triggerLandingViewGtmCtfEvent(collected, buyStep?.eventCategory);
+        nextScreen(<Step nextStep={buyStep} />);
+      } else if (label?.includes("swap")) {
+        //swp tab click
+        sendDataToGTM(swapTabClickGtmEvent);
+        window.location.replace(SWAP_URL);
+      }
+    },
+    [buyStep, collected, nextScreen, sendDataToGTM]
+  );
+
+  const getAvailableTabs = useCallback(() => {
+    const { supportSell, supportSwap } = collected;
+    let filteredTabs = tabNames;
+    if (!supportSell) {
+      filteredTabs = filteredTabs.filter((s) => !s.includes("sell"));
+    }
+    if (!supportSwap) {
+      filteredTabs = filteredTabs.filter((s) => !s.includes("swap"));
+    }
+    return filteredTabs;
+  }, [collected]);
 
   return (
     <div className={styles.view}>
       <TabsHeader
-        tabs={
-          buyStep && collected.supportSell
-            ? tabNames
-            : tabNames.filter((s, i) => i !== 1)
-        }
+        tabs={getAvailableTabs()}
         tabSelected={0}
-        onClickItem={(i: number) => {
-          if (i === 0) return;
-          nextScreen(<Step nextStep={buyStep} />);
+        onClickItem={handleTabItemClick}
+        onMenuClick={() => {
+          sendDataToGTM({ ...menuBtnClickGtmEvent });
+          nextScreen(<Menu className={tabHeaderClasses["tabs-header-menu"]} />);
         }}
       />
       <BodyBuyCrypto
