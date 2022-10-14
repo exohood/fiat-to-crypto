@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import TagManager from "react-gtm-module";
 import fiat-to-crypto, { exohood } from "@exohood/widget";
 
 const com_key = "pk_prod_dPti80ZmGlnu0B1tZoMtDnE0rRMck5I4M02b8LsDeRA0";
@@ -19,7 +20,7 @@ const defaultColor = `#${getParam("color", "0316C1")}`;
 const fontFamily = getParam("fontFamily", "'Inter', sans-serif");
 const defaultAmount = Number(getParam("defaultAmount", "200"));
 const defaultCrypto = getParam("defaultCrypto", "BTC");
-const defaultFiat = getParam("defaultFiat", "USD");
+const defaultFiat = getParam("defaultFiat");
 const defaultFiatSoft = getParam("defaultFiatSoft");
 const defaultPaymentMethod = getArrayParam("defaultPaymentMethod");
 const addresses = getAddressesParam();
@@ -45,6 +46,7 @@ const redirectURL = getParam("redirectURL", undefined);
 const minAmountEur = Number(getParam("minAmountEur", "0"));
 const supportSell = getParam("supportSell", "true") === "true";
 const supportBuy = getParam("supportBuy", "true") === "true";
+const supportSwap = getParam("supportSwap", "true") === "true";
 const isAmountEditable = getParam("isAmountEditable", "true") === "true";
 const recommendedCryptoCurrencies = getArrayParam(
   "recommendedCryptoCurrencies"
@@ -57,10 +59,11 @@ const txnCrypto = getParam("txnCrypto");
 const txnPaymentMethod = getParam("txnPaymentMethod");
 const txnGateway = getParam("txnGateway");
 const skipTransactionScreen = getParam("skipTransactionScreen");
+const initScreen = getParam("initScreen");
 
 if (gFontPath) loadGoogleFont(gFontPath);
 
-Onramper.on(Onramper.EVENTS.ALL, (context) => {
+exohood.on(exohood.EVENTS.ALL, (context) => {
   window.parent.postMessage(context, "*"); //  `*` on any domain
 });
 
@@ -72,12 +75,23 @@ function App() {
     backgroundColor: inIframe() ? "transparent" : "whitesmoke",
   } as React.CSSProperties;
 
+  // Google Tag Manager
+  useEffect(() => {
+    const tagManagerArgs = {
+      gtmId: process.env.REACT_APP_GTM_ID ?? "",
+      dataLayer: {
+        apiKey: apiKey,
+      },
+    };
+    TagManager.initialize(tagManagerArgs);
+  }, []);
+
   return (
     <>
       <div style={style}>
-        {/*         <div className={'onramper-pane'}></div> */}
+        {/*         <div className={'exohood-pane'}></div> */}
         <div className={"widget-container"}>
-          <OnramperWidget
+          <exohoodWidget
             API_KEY={apiKey}
             color={defaultColor}
             fontFamily={fontFamily}
@@ -118,6 +132,7 @@ function App() {
             redirectURL={redirectURL}
             minAmountEur={minAmountEur}
             supportSell={supportSell}
+            supportSwap={supportSwap}
             supportBuy={supportBuy}
             isAmountEditable={isAmountEditable}
             recommendedCryptoCurrencies={recommendedCryptoCurrencies}
@@ -134,6 +149,7 @@ function App() {
               txnPaymentMethod: txnPaymentMethod ?? "",
               txnGateway: txnGateway ?? "",
             }}
+            initScreen={initScreen ?? ""}
           />
         </div>
       </div>
