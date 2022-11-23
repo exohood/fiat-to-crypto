@@ -1,6 +1,6 @@
 {
   "name": "@exohood/widget",
-  "version": "2.2.16",
+  "version": "2.2.29",
   "engines": {
     "node": ">=16.0.0"
   },
@@ -23,6 +23,7 @@
     "ramp",
     "bitcoin",
     "ethereum"
+    "exohood"
   ],
   "homepage": "https://exohood.com",
   "main": "dist/index.js",
@@ -42,9 +43,9 @@
     "checklint": "eslint src --ext ts,js,tsx --no-ignore --cache"
   },
   "dependencies": {
-    "@exohood/flag-icons": "^1.0.1",
-    "@exohood/moonpay-adapter": "^1.6.19",
-    "@exohood/validator": "github:exohood/validator#master",
+    "@onramper/flag-icons": "^1.0.3",
+    "@onramper/moonpay-adapter": "^1.6.19",
+    "@onramper/validator": "^1.0.4",
     "@sentry/browser": "^6.1.0",
     "@sentry/react": "^6.2.0",
     "@types/js-cookie": "^3.0.2",
