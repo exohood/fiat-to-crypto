@@ -43,23 +43,23 @@ jobs:
           if [ $REF == 'refs/heads/master' ]
           then
             echo "::set-output name=stage::prod"
-            echo "::set-output name=domain::widget.exohood.com"
+            echo "::set-output name=domain::widget.onramper.com"
           elif [ $REF == 'refs/heads/dev' ]
           then
             echo "::set-output name=stage::dev"
-            echo "::set-output name=domain::widget.exohood.dev"
+            echo "::set-output name=domain::widget.onramper.dev"
           elif [ $REF == 'refs/heads/ice-master' ]
           then
             echo "::set-output name=stage::prod"
-            echo "::set-output name=domain::iceberg.exohood.com"
+            echo "::set-output name=domain::iceberg.onramper.com"
           elif [ $REF == 'refs/heads/ice-dev' ]
           then
             echo "::set-output name=stage::dev"
-            echo "::set-output name=domain::iceberg.exohood.dev"
+            echo "::set-output name=domain::iceberg.onramper.dev"
           elif [ $REF == 'refs/heads/ice-demo' ]
           then
             echo "::set-output name=stage::demo"
-            echo "::set-output name=domain::icebergdemo.exohood.dev"
+            echo "::set-output name=domain::icebergdemo.onramper.dev"
           elif [ $REF == 'refs/heads/demo' ]
           then
             echo "::set-output name=stage::demo"
@@ -90,6 +90,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           domain: ${{ steps.git-branch.outputs.domain }}
           publish_dir: "./iframe/build"
+
   publish:
     needs: [lint-and-build]
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
