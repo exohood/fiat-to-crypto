@@ -1,9 +1,9 @@
 {
-  "name": "onramper-widget",
+  "name": "fiattocrypto-widget",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@onramper/widget": "file:../package",
+    "@ofiattocrypto/widget": "file:../package",
     "@sentry/react": "^6.1.0",
     "@sentry/tracing": "^6.1.0",
     "react": "^17.0.2",
