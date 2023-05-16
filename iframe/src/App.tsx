@@ -18,7 +18,7 @@ const defaultApiKey =
 const apiKey = getParam("apiKey", defaultApiKey);
 const defaultColor = `#${getParam("color", "0316C1")}`;
 const fontFamily = getParam("fontFamily", "'Inter', sans-serif");
-const defaultAmount = Number(getParam("defaultAmount", "200"));
+const defaultAmount = Number(getParam("defaultAmount", "0"));
 const defaultCrypto = getParam("defaultCrypto", "BTC");
 const defaultFiat = getParam("defaultFiat");
 const defaultFiatSoft = getParam("defaultFiatSoft");
@@ -30,6 +30,10 @@ const onlyPaymentMethods = getArrayParam("onlyPaymentMethods");
 const excludePaymentMethods = getArrayParam("excludePaymentMethods");
 const excludeFiat = getArrayParam("excludeFiat");
 const onlyGateways = getArrayParam("onlyGateways");
+const excludeGateways =
+    apiKey === "pk_prod_trQ0nGBcmU_JY41N8Tl50Q00" || apiKey === "pk_test_oDsXkHokDdr06zZ0_sxJGw00"
+        ? ['Transak', 'Moonpay']
+        : undefined;
 const onlyFiat = getArrayParam("onlyFiat");
 const country = getParam("country");
 const language = getParam("language");
@@ -63,7 +67,7 @@ const initScreen = getParam("initScreen");
 
 if (gFontPath) loadGoogleFont(gFontPath);
 
-exohood.on(exohood.EVENTS.ALL, (context) => {
+Onramper.on(Onramper.EVENTS.ALL, (context) => {
   window.parent.postMessage(context, "*"); //  `*` on any domain
 });
 
@@ -89,9 +93,9 @@ function App() {
   return (
     <>
       <div style={style}>
-        {/*         <div className={'exohood-pane'}></div> */}
+        {/*         <div className={'onramper-pane'}></div> */}
         <div className={"widget-container"}>
-          <exohoodWidget
+          <OnramperWidget
             API_KEY={apiKey}
             color={defaultColor}
             fontFamily={fontFamily}
@@ -109,6 +113,7 @@ function App() {
               excludeFiat: excludeFiat,
               onlyGateways: onlyGateways,
               onlyFiat: onlyFiat,
+              excludeGateways: excludeGateways
             }}
             selectGatewayBy={selectGatewayBy}
             country={country}
@@ -165,7 +170,8 @@ function getParam(name: string, defaultValue?: string): string | undefined {
   try {
     return decodeURIComponent(value);
   } catch (error) {
-    throw new Error(`Couldn't decode ${name} parameter!`);
+    // throw new Error(`Couldn't decode ${name} parameter!`);
+    console.error(`Couldn't decode ${name} parameter!`);
   }
 }
 
@@ -227,7 +233,8 @@ function getJSONParam(name: string, defaultValue?: string) {
     if (!value) return defaultValue;
     return JSON.parse(decodeURIComponent(value));
   } catch (error) {
-    throw new Error(`Invalid value for ${name} parameter!`);
+    // throw new Error(`Invalid value for ${name} parameter!`);
+    console.error(`Invalid value for ${name} parameter!`);
   }
 }
 
