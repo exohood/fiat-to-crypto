@@ -7,15 +7,21 @@ Buy over 150 Cryptocurrency and pay with Visa, MasterCard, or Bank Transfer or w
 With Exohood, the best offer is always available. For any transaction, we check which gateway has the lowest fees, and allow the user to choose their preferred option.
 
 # What Exchange gateways does Exohood support?
-MoonPay, wyre, Xanpool, mercuryo, indacoin, Coinify, BTCDirect and UTORG. 
-
-Coming Soon: Transak 🚧
+Guardarian, MoonPay, Transak, Alchemy Pay, Coinifi, Itez, Utorg, Sardine, Payfura, Binance, BTC Direct, Localramp, Onmeta and Transfi.
 
 # What payment methods can be used to buy crypto?
 Currently, Exohood supports:
 
     Worldwide credit & debit cards (VISA, Mastercard, Discover)
     EU wire transfers (SEPA, Interac E-transfer, Faster Payments)
+    Apple Pay
+    Google Pay
+    Bancontact (Belgium)
+    EPS (Austria)
+    Giropay (Germany)
+    iDEAL (Netherlands)
+    Sofort (Germany)
+    RevolutPay (UK)
     FPS (HK)
     Alipay (HK)
     PayNow (Singapore)
@@ -151,7 +157,7 @@ KYC/AML
 
 KYC/AML procedures are implemented by the fiat gateways aggregated within Exohood. To buy cryptocurrencies, users will have to prove their identity to the fiat gateway used for a transaction. The fiat gateway is responsible for implementing appropriate procedures and compliance requirements to allow users to buy cryptocurrencies. Through Exohood, users can quickly fill in/upload all info and documents required by the fiat on-ramp. We never store this data ourselves.
 
-Learn More ⚠️
+# Learn More
 
 Customer Service  
 
