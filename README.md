@@ -81,7 +81,7 @@ We supports all fiat currencies that are supported by the fiat gateways integrat
     ZAR – South African Rand
     
 # What cryptocurrencies does Exohood support?
-Currently, Exohood supports over 125 cryptocurrencies, including: 
+Currently, Exohood supports over 2000 cryptocurrencies, including: 
 
     0x (ZRX) 
     Algorand (ALGO)
