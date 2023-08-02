@@ -1,7 +1,7 @@
 ![Title](fiat_to_crypto.png)
 
 # Fiat-to-Crypto
-Buy over 150 Cryptocurrency and pay with Visa, MasterCard, or Bank Transfer or with more than 50 other currencies.
+Buy over 2000 Cryptocurrency and pay with Visa, MasterCard, or Bank Transfer or with more than 50 other currencies.
 
 # Get the best pricing
 With Exohood, the best offer is always available. For any transaction, we check which gateway has the lowest fees, and allow the user to choose their preferred option.
