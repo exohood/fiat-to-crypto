@@ -1,170 +1,175 @@
-![Title](fiat_to_crypto.png)
 
-# Fiat-to-Crypto
-Buy over 2000 Cryptocurrency and pay with Visa, MasterCard, or Bank Transfer or with more than 50 other currencies.
+![Exohood Fiat-to-Crypto](fiat_to_crypto.png)
 
-# Get the best pricing
-With Exohood, the best offer is always available. For any transaction, we check which gateway has the lowest fees, and allow the user to choose their preferred option.
+# Exohood Fiat-to-Crypto - Discontinued
 
-# What Exchange gateways does Exohood support?
-Guardarian, MoonPay, Transak, Alchemy Pay, Coinifi, Itez, Utorg, Sardine, Payfura, Binance, BTC Direct, Localramp, Onmeta and Transfi.
+> ⚠️ **SERVICE PERMANENTLY DISCONTINUED - FIAT-TO-CRYPTO UNAVAILABLE**
+>
+> Exohood Labs Inc. has permanently discontinued the Exohood Fiat-to-Crypto integration project.
+>
+> **The service is no longer operational. Exohood Labs does not provide cryptocurrency purchases, fiat payment processing, banking transfers, or fiat onramp and offramp services through this initiative.**
+>
+> Previously published payment instructions, supported currencies, cryptocurrency listings, and provider integrations are obsolete.
+>
+> **Do not send funds, submit payment information, or provide identity documents to any service claiming to operate the former Exohood Fiat-to-Crypto platform.**
+>
+> **Service Status: Permanently Discontinued.**
 
-# What payment methods can be used to buy crypto?
-Currently, Exohood supports:
+## Historical Project Overview
 
-    Worldwide credit & debit cards (VISA, Mastercard, Discover)
-    EU wire transfers (SEPA, Interac E-transfer, Faster Payments)
-    Apple Pay
-    Google Pay
-    Bancontact (Belgium)
-    EPS (Austria)
-    Giropay (Germany)
-    iDEAL (Netherlands)
-    Sofort (Germany)
-    RevolutPay (UK)
-    FPS (HK)
-    Alipay (HK)
-    PayNow (Singapore)
-    Duitnow (Malaysia),
-    InstaPay (Phillippines)
-    Cebuana (Phillippines)
-    Prompt Pay (Thailand)
-    UPI (India)
-    Viettal Pay (Vietnam)
-    Gojek Pay (Indonesia)
-    Mandiri (Indonesia)
-    
-# What currencies does Exohood support?
-We supports all fiat currencies that are supported by the fiat gateways integrated within Exohood. Currently, that includes:
+Exohood Fiat-to-Crypto was originally developed as an integration initiative intended to connect users with independent cryptocurrency payment gateways.
 
-    AUD – Australian Dollar
-    BGN – Bulgarian Lev
-    CAD – Canadian Dollar
-    CHF – Swiss Franc
-    CNY – Chinese Yuan
-    COP – Colombia Peso
-    CZK – Czech Koruna
-    DKK – Danish Krone
-    DOP – Dominican Peso
-    EGP – Egyptian Pound
-    EUR – Euro
-    GBP – Pound Sterling
-    HKD – Hong Kong Dollar
-    HRK – Croatian Kuna
-    IDR – Indonesian Rupiah
-    ILS – Israeli New Shekel
-    JPY – Japanese Yen
-    JOD – Jordanian Dollar
-    KES – Kenyan Shilling
-    KRW – South Korean Won
-    KWD – Kuwaiti Dinar
-    LKR – Sri Lankan Rupee
-    MAD – Moroccan Dirham
-    MXN – Mexican Peso
-    MYR – Malaysian Ringgit
-    NGN – Nigerian Naira
-    NOK – Norwegian Krone
-    NZD – New Zealand Dollar
-    OMR – Omani Rial
-    PEN – Peruvian Sol
-    PKR – Pakistanee Rupee
-    PLN – Polish Złoty
-    RON – Romanian Leu
-    RUB – Russian Ruble
-    SEK – Swedish Krona
-    SGD – Singapore Dollar
-    THB – Thai Baht
-    TRY – Turkish Lira
-    TWD – Taiwan Dollar
-    USD – US Dollar
-    VND – Vietnamese Dong
-    ZAR – South African Rand
-    
-# What cryptocurrencies does Exohood support?
-Currently, Exohood supports over 2000 cryptocurrencies, including: 
+The project explored software solutions for purchasing digital assets using traditional payment methods, including:
 
-    0x (ZRX) 
-    Algorand (ALGO)
-    Augur (REP), Band (BAND)
-    Basic Attention Token  (BAT) 
-    Binance Coin (BNB)
-    Binance USD (BUSD) 
-    Bitcoin (BTC) 
-    Bitcoin  Cash (BCH) 
-    BORA (BORA)
-    Cardano (ADA) 
-    Celo (CELO)
-    Chainlink (LINK)
-    Chiliz (CHZ)
-    Civic (CVC)
-    Compound (COMP)
-    Cosmos (ATOM)
-    Dai (DAI) 
-    Dash (DASH)
-    Decentraland (MANA)
-    DigiByte (DGB)
-    Dogecoin (DOGE) 
-    Elrond eGold (EGLD)
-    EOSDT (EOSDT)
-    EOS (EOS)
-    Ethereum Classic (ETC)
-    Ethereum (ETH)
-    Ethereum (Kovan) (KETH)
-    Ethereum (Rinkeby) (RINKETH)
-    FunFair (FUN)
-    Hedera Hashgraph (HBAR)
-    Hive (HIVE), IOTA (MIOTA)
-    Kava  (KAVA)
-    LBRY Credits (LBC)
-    Litecoin (LTC)
-    Luna (LUNA)
-    Maker (MKR)
-    Nano (NANO)
-    NEO (NEO)
-    OKB (OKB)
-    OMG Network (OMG)
-    Ontology Gas  (ONG)
-    Ontology (ONT)
-    Paxos Standard (PAX)
-    Polkadot (DOT)
-    Qtum  (QTUM)
-    Ravencoin (RVN)
-    Solana (SOL)
-    Stellar (XLM)
-    StormX (STMX)
-    Terra KRW (KRT)
-    Terra SDR (SDT)
-    Terra  USD (UST)
-    Tether (USDT)
-    Tezos (XTZ)
-    Travala (AVA)
-    TRON (TRX)
-    TrueUSD (TUSD)
-    USD Coin (USDC)
-    VeChain (VET)
-    Waves (WAVES)
-    WAX  (WAXP)
-    XRP (XRP)
-    Zcash (ZEC)
-    Zilliqa (ZIL)
-    
-# Who handles chargebacks, KYC/AML and customer service?
-Chargebacks
+- Credit and debit cards.
+- Bank transfers.
+- Supported digital payment services.
+- Local payment methods.
+- Multiple fiat currencies.
+- Third-party cryptocurrency purchase providers.
 
-As  our customer, you never have to deal with any attempted fraud by end-users. All chargebacks and other fraud attempts will be dealt with  by the fiat gateways aggregated in Exohood.
+The original concept involved comparing available quotations and connecting users with external payment providers.
 
-KYC/AML
+These capabilities are retained in this repository solely as historical project documentation.
 
-KYC/AML procedures are implemented by the fiat gateways aggregated within Exohood. To buy cryptocurrencies, users will have to prove their identity to the fiat gateway used for a transaction. The fiat gateway is responsible for implementing appropriate procedures and compliance requirements to allow users to buy cryptocurrencies. Through Exohood, users can quickly fill in/upload all info and documents required by the fiat on-ramp. We never store this data ourselves.
+They do not represent an active service or currently available functionality.
 
-# Learn More
+## Historical Payment Gateway Integrations
 
-Customer Service  
+Earlier project documentation referenced several third-party payment providers, including:
 
-We ensure your customer service won’t be bothered with questions for fiat gateways. In case users need help, they can easily get answers to their questions. If Exohood’s FAQ doesn’t suffice, we ensure users they can easily reach the support department of the fiat gateway used for a transaction. Some fiat gateways also provide a dashboard so the user can track their own transaction. Upon completing a transaction, an email is sent to the user with more info on how to reach support as well.
+- Guardarian
+- MoonPay
+- Transak
+- Alchemy Pay
+- Coinify
+- Itez
+- Utorg
+- Sardine
+- Payfura
+- Binance
+- BTC Direct
+- Localramp
+- Onmeta
+- TransFi
 
-# Do users have to go through KYC every time they transact?
-No. We do not sell cryptocurrencies, nor do we exchange or convert between fiat currencies and cryptocurrencies. We provide our clients with software to provide a fiat on-ramp to their users. The software can be used by end-users to buy cryptocurrency from third-party fiat-to-crypto gateways.
+**These references are historical only.**
 
-# Do you have access to my funds?
-No, we don’t. Your money passes through our partners’ websites. Our service has no access to your money.
+Exohood Labs does not currently operate the former aggregation service or represent that these companies maintain active integrations, partnerships, or commercial agreements with Exohood Labs.
+
+The inclusion of a provider name does not constitute an endorsement or confirmation of service availability.
+
+## Payments and Fiat Transactions
+
+**Exohood Labs no longer accepts or facilitates payments through this initiative.**
+
+The discontinued service does not provide:
+
+- Cryptocurrency purchases using fiat currencies.
+- Credit or debit card payment processing.
+- Bank transfer integrations.
+- Fiat currency conversion.
+- Cryptocurrency purchase quotations.
+- Payment gateway aggregation.
+- Fiat deposits or withdrawals.
+- Payment transaction monitoring.
+- Customer onboarding for cryptocurrency purchases.
+
+Any historical payment instructions or payment gateway references should not be used to initiate new transactions.
+
+Exohood Labs does not guarantee the recovery of funds transferred to independent third parties.
+
+## KYC, AML and Personal Information
+
+The original project proposed relying on external payment providers for identity verification and applicable compliance requirements.
+
+These historical descriptions do not represent an active KYC or AML service operated through this repository.
+
+**Users should not submit identity documents, banking credentials, payment card details, or other sensitive personal information through discontinued project interfaces.**
+
+Exohood Labs does not operate a customer verification process for this former Fiat-to-Crypto initiative.
+
+Any historical privacy or data processing statements should not be interpreted as descriptions of currently operating services.
+
+## Customer Support - Discontinued
+
+Technical support, payment assistance, transaction monitoring, and customer service for this project have been discontinued.
+
+Exohood Labs does not provide support for new cryptocurrency purchases or transactions attempted through historical integrations.
+
+For transactions previously completed directly through an independent payment provider, users should refer to the relevant provider's official support channels and applicable terms.
+
+This repository does not provide payment recovery or refund services.
+
+## Third-Party Impersonation Warning
+
+> ⚠️ **WARNING - UNAUTHORIZED FIAT-TO-CRYPTO SERVICES**
+>
+> Exohood Labs does not authorize, operate, promote, or endorse third-party websites, payment platforms, or individuals claiming to represent the discontinued Exohood Fiat-to-Crypto service.
+>
+> Users should not send funds, connect wallets, provide banking information, or disclose personal identification documents to services making such claims.
+>
+> Historical project documentation does not establish authorization for any third party to operate under the Exohood name.
+
+## Relationship With Exoswap
+
+Exoswap is a separate, active decentralized exchange application developed by Exohood Labs Inc.
+
+Exoswap provides non custodial digital asset swaps through compatible blockchain networks, wallet connections, and external decentralized liquidity infrastructure.
+
+**Exoswap does not operate the discontinued Exohood Fiat-to-Crypto service.**
+
+The termination of this initiative does not affect Exoswap's separate decentralized token swap functionality.
+
+Official application: https://exohood.app
+
+## Repository Status
+
+| Component | Status |
+|---|---|
+| Fiat-to-Crypto Project | Permanently Discontinued |
+| Payment Gateway Aggregation | Discontinued |
+| Card Payments | Unavailable |
+| Bank Transfer Integration | Unavailable |
+| Fiat Onramp and Offramp | Unavailable |
+| Cryptocurrency Purchase Services | Unavailable |
+| KYC/AML Integration | Discontinued |
+| Transaction Support | Discontinued |
+| Public Development | Closed |
+| Technical Maintenance | Discontinued |
+| External Contributions | Closed |
+| Repository Purpose | Historical Reference |
+
+## Repository and Licensing Notice
+
+This repository is retained exclusively for historical, educational, and archival purposes.
+
+Any published source code, integration examples, API references, payment configurations, or technical documentation may be outdated.
+
+The repository does not represent a production-ready financial service or an authorized payment processing platform.
+
+**Do not use this historical code to process real payments, store financial credentials, or operate cryptocurrency purchase services without independent technical, security, and regulatory review.**
+
+Previously published source code remains subject to its applicable license and copyright notices.
+
+Historical materials are provided **"AS IS"**, without warranties of functionality, security, accuracy, or suitability for a particular purpose, to the extent permitted by applicable law.
+
+Exohood Labs does not provide ongoing maintenance, security updates, technical support, or deployment assistance for this discontinued project.
+
+## Final Notice
+
+**Exohood Fiat-to-Crypto has been permanently discontinued.**
+
+No official fiat payment aggregation, cryptocurrency purchase, or fiat conversion services are available under this initiative.
+
+Historical references to payment gateways, payment methods, supported cryptocurrencies, or fiat currencies do not represent current integrations or service commitments.
+
+This repository is retained solely to preserve the project's technical and development history.
+
+---
+
+**Repository Status: PERMANENTLY DISCONTINUED**
+
+**Service Availability: UNAVAILABLE**
+
+**Maintenance and Contributions: CLOSED**
